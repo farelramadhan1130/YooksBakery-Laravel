@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('master');
 });
+
+Route::get('/home', [App\Http\Controllers\homeController::class, 'index'])->name('user.index');

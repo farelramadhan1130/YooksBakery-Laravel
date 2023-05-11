@@ -1,5 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Bootstrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <!-- Jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('user/lib/owlcarousel/assets/owl.carousel.min.css')" rel="stylesheet">
+    <link href="{{ asset('user/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')" rel="stylesheet" />
+
+    <!-- <link rel="icon" type="image/x-icon" href="ico/favicon.ico" /> -->
+
+    <title>Yooks Bakery</title>
+
+</head>
+
+<!-- Topbar Start -->
+<div class="container-fluid bg-light pt-3 d-none d-lg-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                    <p><i class="fa fa-envelope mr-2"></i>yooksbakery@gmail.com</p>
+                    <p class="text-body px-3">|</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+62 838 5772 6588</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-primary px-3" href="https://www.facebook.com/groups/himanika.polije/?ref=share&mibextid=NSMWBT">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-primary px-3" href="https://twitter.com/PelajarPOLIJE?t=gg747-mo5XAiYIwmI5dEJw&s=09">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-primary px-3" href="https://www.linkedin.com/school/politeknik-negeri-jember/">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-primary px-3" href="https://instagram.com/mif21_polije?igshid=YmMyMTA2M2Y=">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-primary pl-3" href="https://youtube.com/@himanikapolije6995">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a class="text-primary pl-3" href="logout.php">Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div class="container-fluid position-relative nav-bar p-0">
+    <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
+            <a href="" class="navbar-brand">
+                <h1 class="m-0 text-primary"><span class="text-dark">YOOKS</span>BAKERY</h1>
+            </a>
+            <button type="button" class="navbar-toggler" datza-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav ml-auto py-0">
+                    <a href="index.php" class="nav-item nav-link">Home</a>
+                    <a href="index.php#about" class="nav-item nav-link">About</a>
+                    <a href="index.php#service" class="nav-item nav-link">Services</a>
+                    <a href="index.php#menu" class="nav-item nav-link">Menu</a>
+                    <a href="formkeranjang.php" class="nav-item nav-link">Keranjang</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
 <body>
-    <?php include 'header.php' ?>
+
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0">
@@ -168,7 +267,7 @@
     </div> -->
     <!--Feature End -->
 
-    <?php
+    <!-- ?0php
         //Mendapatkan ID Toko user yang login
         $id_toko = $_SESSION['User']['id_toko'];
 
@@ -182,7 +281,7 @@
         // echo"<pre>";
         // print_r($kategori);
         // echo"</pre>";
-    ?>
+    ? -->
 
     <!-- Destination Start -->
     <div class="container-fluid py-5">
@@ -192,17 +291,17 @@
                 <h1>Jenis Produk Kami</h1>
             </div>
             <div class="row">
-            <?php foreach ($kategori as $key => $value): ?>
+                <!-- ?php foreach ($kategori as $key => $value) : ? -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="destination-item position-relative overflow-hidden mb-2">
-                        <img class="img-fluid" src="../asset/image/image-admin/kategori/<?php echo $value["foto_kategori"] ?>" alt="">
+                        <img class="img-fluid" src="../asset/image/image-admin/kategori/" alt=""> <!--?php echo $value["foto_kategori"] ?-->
                         <a class="destination-overlay text-white text-decoration-none" href="">
-                            <h5 class="text-white"><?php echo $value["nama_kategori"] ?></h5>
+                            <h5 class="text-white"><!--?php echo $value["nama_kategori"]? --></h5>
                             <span></span>
                         </a>
                     </div>
                 </div>
-            <?php endforeach ?>    
+                <!-- ?php endforeach ? -->
             </div>
         </div>
     </div>
@@ -254,7 +353,7 @@
             <div class="card-body">
                 <form method="post" class="mb-3">
                     <div class="input-group">
-                        <input type="text" name="cari" class="form-control input-cari"> 
+                        <input type="text" name="cari" class="form-control input-cari">
                         <button class="btn btn-primary btn-cari">Cari</button>
                     </div>
                 </form>
@@ -265,18 +364,18 @@
     <!-- Packages End -->
 
     <!-- Cari Otomatis -->
-    <script>
-        $(document).ready(function(){
+    <!-- <script>
+        $(document).ready(function() {
             $.ajax({
                 url: 'tampilproduk.php',
-                success:function(hasil){
+                success: function(hasil) {
                     $(".letak-produk").html(hasil);
                 }
             })
         })
-    </script>
+    </script> -->
     <!-- END Cari Otomatis -->
-<!-- 
+    <!-- 
     <script>
         $(document).ready(function(){
             $.ajax({
@@ -288,25 +387,25 @@
         }) 
     </script> -->
 
-    
-    <script>
-        $(document).ready(function(){
-            $(document).on("click", ".btn-cari", function(e){
+
+    <!-- <script>
+        $(document).ready(function() {
+            $(document).on("click", ".btn-cari", function(e) {
                 e.preventDefault();
                 var cari = $(".input-cari").val();
                 $.ajax({
                     type: 'post',
                     url: 'cariproduk.php',
-                    data: 'cari='+cari,
-                    success:function(hasil){
+                    data: 'cari=' + cari,
+                    success: function(hasil) {
                         $(".letak-produk").html(hasil);
                     }
                 })
             })
         })
-    </script>
+    </script> -->
 
-<!--     
+    <!--     
 
     <script>
         $(document).ready(function(){
@@ -415,38 +514,37 @@
                             </form>
                         </div>
                     </div> -->
-                </div> 
-            </div>
-        </div>
+    </div>
+    </div>
+    </div>
     </div>
     <!-- Registration End -->
 
 
     <!-- Team Start -->
-    <?php
-        //Mendapatkan ID Toko user yang login
-        $id_toko = $_SESSION['User']['id_toko'];
+    <!--?php
+    //Mendapatkan ID Toko user yang login
+    $id_toko = $_SESSION['User']['id_toko'];
 
-        $user =array();
-        $ambil = $koneksi ->query("SELECT * FROM user WHERE id_toko='$id_toko' ORDER BY id_user DESC LIMIT 4 ");
-        while($tiap = $ambil -> fetch_assoc())
-        {
-            $user[] = $tiap;
-        }
+    $user = array();
+    $ambil = $koneksi->query("SELECT * FROM user WHERE id_toko='$id_toko' ORDER BY id_user DESC LIMIT 4 ");
+    while ($tiap = $ambil->fetch_assoc()) {
+        $user[] = $tiap;
+    }
 
-        // echo"<pre>";
-        // print_r($kategori);
-        // echo"</pre>";
-    ?>
+    // echo"<pre>";
+    // print_r($kategori);
+    // echo"</pre>";
+    ?-->
     <div class="container-fluid bg-registration py-5">
-    <div class="container py-5">
+        <div class="container py-5">
             <div class="text-center mb-3 pb-3">
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Testimonial</h6>
                 <h1 class="text-light">Testimonial dari pelanggan kami</h1>
             </div>
             <div class="owl-carousel testimonial-carousel">
                 <div class="text-center">
-                    <img class="img-fluid mx-auto" src="img/testimonial-2.jpg" style="width: 100px; height: 100px;" >
+                    <img class="img-fluid mx-auto" src="img/testimonial-2.jpg" style="width: 100px; height: 100px;">
                     <div class="testimonial-text bg-white p-4 mt-n5">
                         <p class="mt-5">Rotinya sesuai sama yang direquest, rekomended buat acara-acara penting @yooksbakery #yooksbakery
                         </p>
@@ -455,7 +553,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <img class="img-fluid mx-auto" src="img/testimonial-3.jpg" style="width: 100px; height: 100px;" >
+                    <img class="img-fluid mx-auto" src="img/testimonial-3.jpg" style="width: 100px; height: 100px;">
                     <div class="testimonial-text bg-white p-4 mt-n5">
                         <p class="mt-5">pelayanannya ramah bangett, pilihan rotinya juga banyak yang bikin ngiler... sukses terus @yooksbakery
                         </p>
@@ -464,7 +562,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <img class="img-fluid mx-auto" src="img/testimonial-4.jpg" style="width: 100px; height: 100px;" >
+                    <img class="img-fluid mx-auto" src="img/testimonial-4.jpg" style="width: 100px; height: 100px;">
                     <div class="testimonial-text bg-white p-4 mt-n5">
                         <p class="mt-5">Harganya terjangkau, Rekomendasi dari aku sih Roti Bolunya.... empuk bangett @yooksbakery
                         </p>
@@ -596,8 +694,97 @@
             </div>
         </div>
     </div> -->
-    <!-- Blog End --> 
+    <!-- Blog End -->
 
     <!-- Footer -->
-    <?php include 'footer.php' ?>
+    <!--?php include 'footer.php' ?-->
     <!-- Footer End -->
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="" class="navbar-brand">
+                    <h1 class="text-primary"><span class="text-white">YOOKS</span>BAKERY</h1>
+                </a>
+                <p>Berdiri sejak tahun 2017, berawal dari membuatkan istri usaha sampai akhirnya menjadi
+                    lapangan kerja untuk tetangga sekitar. Kami menjual aneka Kue maupun jajanan tradisional, serta menerima layanan pesanan kue untuk acara.</p>
+                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Follow Us</h6>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Our Services</h5>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="index.php"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white-50 mb-2" href="index.php#about"><i class="fa fa-angle-right mr-2"></i>About</a>
+                    <a class="text-white-50 mb-2" href="index.php#service"><i class="fa fa-angle-right mr-2"></i>Services</a>
+                    <a class="text-white-50 mb-2" href="package.php"><i class="fa fa-angle-right mr-2"></i>Menu</a>
+                </div>
+            </div>
+            <!-- <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Usefull Links</h5>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Destination</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Services</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Packages</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Guides</a>
+                    <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Testimonial</a>
+                    <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Blog</a>
+                </div>
+            </div> -->
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="text-white text-uppercase mb-4" style="letter-spacing: 5px;">Contact Us</h5>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>Jl. Melon 3 no. 5B, Krajan, Patrang, Kec. Patrang, Kabupaten Jember, Jawa Timur 68111</p>
+                <p><i class="fa fa-phone-alt mr-2"></i>+62 838 5772 6588</p>
+                <p><i class="fa fa-envelope mr-2"></i>yooksbakery@gmail.com</p>
+                <h6 class="text-white text-uppercase mt-4 mb-3" style="letter-spacing: 5px;">Newsletter</h6>
+                <div class="w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-light" style="padding: 25px;" placeholder="Your Email">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-3">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2532.7674293174155!2d113.72551110191155!3d-8.147651396325841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd695d0beb86da3%3A0xc2976f4f477e5f36!2sICHA%20TAILOR!5e0!3m2!1sid!2sid!4v1671073270383!5m2!1sid!2sid" width="100%" height="50%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+    <div class="container-fluid bg-dark text-white border-top py-2 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="row">
+            <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white-50">Copyright &copy; <a href="#">Yooks Bakery</a>. All Rights Reserved.</a>
+                </p>
+            </div>
+            <div class="col-lg-6 text-center text-md-right">
+                <p class="m-0 text-white-50">Designed by <a href="https://htmlcodex.com">Yooks Bakery</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    
+    <!-- Back to Top -->
+    <a href="formkeranjang.php" class="btn btn-lg btn-primary btn-keranjang back-to-top"><i class="fa fa-shopping-cart"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
