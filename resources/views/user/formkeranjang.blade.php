@@ -1,6 +1,5 @@
-
+@include('user.header')
 <body>
-    <?php include 'header.php' ?>
     <!-- Header Start -->
     <div class="container-fluid page-header">
         <div class="container">
