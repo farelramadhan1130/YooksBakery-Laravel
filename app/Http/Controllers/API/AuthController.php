@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 
-        $token = $user->createToken('auth_token')->plainTextToken; // Menggunakan metode createToken pada objek User
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         $success['token'] = $token;
         $success['name'] = $user->name;
@@ -45,10 +46,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user(); // Menggunakan objek User yang dihasilkan oleh Auth
+        $credentials = $request->only('email', 'password');
 
-            $token = $user->createToken('auth_token')->plainTextToken; // Menggunakan metode createToken pada objek User
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            $token = User::findOrFail($user->id)->createToken('auth_token')->plainTextToken;
 
             $success['token'] = $token;
             $success['name'] = $user->name;
@@ -60,10 +63,8 @@ class AuthController extends Controller
                 'data' => $success
             ]);
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Check Email dan Password Lagi',
-                'data' => null
+            throw ValidationException::withMessages([
+                'email' => ['Email atau password salah.'],
             ]);
         }
     }
