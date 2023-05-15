@@ -37,8 +37,8 @@ if (!isset($_SESSION['User'])) {
     <link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{ asset('user/lib/owlcarousel/assets/owl.carousel.min.css')" rel="stylesheet">
-    <link href="{{ asset('user/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')" rel="stylesheet" />
+    <link href="{{ asset('user/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('user/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
     <!-- <link rel="icon" type="image/x-icon" href="ico/favicon.ico" /> -->
 
@@ -96,11 +96,11 @@ if (!isset($_SESSION['User'])) {
             </button>
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
-                    <a href="index.php" class="nav-item nav-link">Home</a>
-                    <a href="index.php#about" class="nav-item nav-link">About</a>
-                    <a href="index.php#service" class="nav-item nav-link">Services</a>
-                    <a href="index.php#menu" class="nav-item nav-link">Menu</a>
-                    <a href="formkeranjang.php" class="nav-item nav-link">Keranjang</a>
+                    <a href="{{ url('/home') }}" class="nav-item nav-link">Home</a>
+                    <a href="#about" class="nav-item nav-link">About</a>
+                    <a href="#service" class="nav-item nav-link">Services</a>
+                    <a href="#menu" class="nav-item nav-link">Menu</a>
+                    <a href="{{ url('formkeranjang') }}" class="nav-item nav-link">Keranjang</a>
                 </div>
             </div>
         </nav>

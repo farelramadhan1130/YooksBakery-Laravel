@@ -10,7 +10,7 @@
     <div id="header-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="w-100" src="{{ asset('img/carousel roti-1.jpg') }}" alt="Image">
+                <img class="w-100" src="{{ asset('user/img/carousel roti-1.jpg') }}" alt="Image">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
                         <h4 class="text-white text-uppercase mb-md-3">Yooks Bakery</h4>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="w-100 img-fluid" src="{{ asset('img/carousel roti-2.jpg') }}" alt="Image" width="w-100">
+                <img class="w-100 img-fluid" src="{{ asset('user/img/carousel roti-2.jpg') }}" alt="Image" width="w-100">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
                         <h4 class="text-white text-uppercase mb-md-3">Yooks Bakery</h4>
@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col-lg-6" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="img/about roti.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100" src="{{ asset('user/img/about roti.jpg') }}" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-6 pt-5 pb-lg-5">
@@ -466,7 +466,7 @@
         </div>
         <div class="owl-carousel testimonial-carousel">
             <div class="text-center">
-                <img class="img-fluid mx-auto" src="{{ asset('img/testimonial-2.jpg') }}" style="width: 100px; height: 100px;">
+                <img class="img-fluid mx-auto" src="{{ asset('user/img/testimonial-2.jpg') }}" style="width: 100px; height: 100px;">
                 <div class="testimonial-text bg-white p-4 mt-n5">
                     <p class="mt-5">Rotinya sesuai sama yang direquest, rekomended buat acara-acara penting @yooksbakery #yooksbakery
                     </p>
@@ -475,7 +475,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <img class="img-fluid mx-auto" src="{{ asset('img/testimonial-3.jpg') }}" style="width: 100px; height: 100px;">
+                <img class="img-fluid mx-auto" src="{{ asset('user/img/testimonial-3.jpg') }}" style="width: 100px; height: 100px;">
                 <div class="testimonial-text bg-white p-4 mt-n5">
                     <p class="mt-5">pelayanannya ramah bangett, pilihan rotinya juga banyak yang bikin ngiler... sukses terus @yooksbakery
                     </p>
@@ -484,7 +484,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <img class="img-fluid mx-auto" src="{{ asset('img/testimonial-4.jpg') }}" style="width: 100px; height: 100px;">
+                <img class="img-fluid mx-auto" src="{{ asset('user/img/testimonial-4.jpg') }}" style="width: 100px; height: 100px;">
                 <div class="testimonial-text bg-white p-4 mt-n5">
                     <p class="mt-5">Harganya terjangkau, Rekomendasi dari aku sih Roti Bolunya.... empuk bangett @yooksbakery
                     </p>
