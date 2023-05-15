@@ -11,4 +11,7 @@ class homeController extends Controller
     {
         return view('user.index');
     }
+    public function formkeranjang(){
+        return view('user.formkeranjang');
+    }
 }

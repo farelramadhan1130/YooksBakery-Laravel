@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\homeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\homeController::class, 'index'])->name('user.index');
+
+Route::get('/formkeranjang', [App\Http\Controllers\homeController::class, 'formKeranjang']);
+
+Route::get('/tampilproduk', [App\Http\Controllers\ProdukController::class, 'tampilProduk'])->name('tampilproduk');
