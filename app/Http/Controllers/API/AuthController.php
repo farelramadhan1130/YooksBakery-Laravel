@@ -19,8 +19,8 @@ class AuthController extends Controller
             'nama_user' => 'required',
             'alamat_user' => 'required',
             'telepon_user' => 'required',
-            'email_user' => 'required|email',
-            'password_user' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
             // 'confirm_password' => 'required|same:password_user'
         ]);
 
@@ -33,13 +33,13 @@ class AuthController extends Controller
         }
 
         $input = $request->all();
-        $input['password_user'] = bcrypt($input['password_user']);
+        $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $success['token'] = $token;
-        $success['nama_user'] = $user->name;
+        $success['nama_user'] = $user->nama_user;
 
         return response()->json([
             'success' => true,
@@ -50,41 +50,24 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email_user' => 'required|email',
-            'password_user' => 'required',
-        ], [
-            'required' => ':attribute harus diisi.',
-            'email_user' => 'alamat email pada kolom :attribute tidak valid.',
-        ]);
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $auth = Auth::user();
+            $success['token'] = User::findOrFail($auth->id)->createToken('auth_token')->plainTextToken;
+            $success['nama_user'] = $auth->nama_user;
+            $success['email'] = $auth->email;
+            $success['password'] = $auth->password;
 
-        if ($validator->fails()) {
             return response()->json([
-                'error' => true,
-                'message' => Str::ucfirst($validator->errors()->first()),
-                'data' => []
+                'success' => true,
+                'message' => 'Login sukses',
+                'data' => $success
             ]);
-
-        }
-
-        $user = User::where('email_user', $request->email_user)->first();
-
-        if (! $user || ! Hash::check($request->password_user, $user->password_user)) {
+        } else {
             return response()->json([
-                'error' => true,
-                'message' => 'Pastikan email dan password anda benar.',
-                'data' => []
+                'success' => false,
+                'message' => 'Cek email dan password lagi',
+                'data' => null
             ]);
         }
-
-        $token = $user->createToken("auth-token")->plainTextToken;
-
-        return response()->json([
-            'error' => false,
-            'message' => 'Berhasil login.',
-            'data' => [
-                'token' => $token
-            ]
-        ]);
     }
 }
