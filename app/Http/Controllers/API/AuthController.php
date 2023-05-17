@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -14,10 +16,12 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'nama_user' => 'required',
+            'alamat_user' => 'required',
+            'telepon_user' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password'
+            'password' => 'required',
+            // 'confirm_password' => 'required|same:password_user'
         ]);
 
         if ($validator->fails()) {
@@ -35,7 +39,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $success['token'] = $token;
-        $success['name'] = $user->name;
+        $success['nama_user'] = $user->nama_user;
 
         return response()->json([
             'success' => true,
@@ -46,25 +50,23 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
-            $token = User::findOrFail($user->id)->createToken('auth_token')->plainTextToken;
-
-            $success['token'] = $token;
-            $success['name'] = $user->name;
-            $success['email'] = $user->email;
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $auth = Auth::user();
+            $success['token'] = User::findOrFail($auth->id)->createToken('auth_token')->plainTextToken;
+            $success['nama_user'] = $auth->nama_user;
+            $success['email'] = $auth->email;
+            $success['password'] = $auth->password;
 
             return response()->json([
                 'success' => true,
-                'message' => 'Login Sukses',
+                'message' => 'Login sukses',
                 'data' => $success
             ]);
         } else {
-            throw ValidationException::withMessages([
-                'email' => ['Email atau password salah.'],
+            return response()->json([
+                'success' => false,
+                'message' => 'Cek email dan password lagi',
+                'data' => null
             ]);
         }
     }
