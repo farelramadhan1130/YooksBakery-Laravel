@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="bootstrap-datepicker/css/bootstrap-datepicker.min.css">
-  <script src="bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-  <script src="bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js"></script>
+<link rel="stylesheet" href="{{ asset('user/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
+<script src="{{ asset('user/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('user/bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js') }}"></script>
+
 
   <script>
   $( function() {
@@ -12,8 +13,22 @@
     });
   } );
   </script>
+@php
+@if (!empty($cartItems) && count($cartItems) > 0)
+@foreach ($cartItems as $item)
+{{ $item->produk->nama_produk }}
+{{ $item->produk->jual_produk }}
+{{ $item->produk->jual_produk * $item->quantity }}
+@endforeach
+@else
+Your cart is empty.
+@endif
+Total: {{ $totalPrice }}
+@foreach ($produkItems as $produk)
+            {{ $produk->nama_produk }}
+        @endforeach
+@endphp
 <?php
-include '../koneksi.php';
 $telp = $_SESSION['User']['telepon_user'];
 $keranjang = array();
 $total = 0;
@@ -28,6 +43,26 @@ if (isset($_SESSION['keranjang']))
     }
 }
 ?>
+@if (!empty($cartItems) && count($cartItems) > 0)
+@foreach ($cartItems as $item)
+ <div class="row">
+    <div class="col-md-11">
+        <h6>{{ $item->produk->nama_produk }}</h6>
+        <span class="small text-muted"> {{ number_format($perproduk['jual_produk']) }} </span>
+        <p class="small"> X {{ $perproduk['jumlah'] }} </p>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-plus tambahi" idnya="{{ $perproduk['id_produk'] }}"></i>
+        </button>
+        <button type="button" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-dash kurangi" idnya="{{ $perproduk['id_produk'] }}"></i>
+        </button>
+    </div>
+ </div>
+ <hr>
+@endforeach
+
 <?php
 foreach ($keranjang as $key => $perproduk): ?>
  <div class="row">

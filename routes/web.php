@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +24,8 @@ Route::get('/home', [App\Http\Controllers\homeController::class, 'index'])->name
 Route::get('/formkeranjang', [App\Http\Controllers\homeController::class, 'formKeranjang']);
 
 Route::get('/tampilproduk', [App\Http\Controllers\ProdukController::class, 'tampilProduk'])->name('tampilproduk');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+Route::patch('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');

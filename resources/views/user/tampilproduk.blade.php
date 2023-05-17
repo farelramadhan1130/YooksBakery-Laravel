@@ -7,7 +7,6 @@
 @endforeach
 @php
 
-    // Dapatkan produk sesuai id toko
     $produk = \App\Models\Produk::where('id_toko', $idToko)->orderBy('id_produk')->get();
 @endphp
 <div class="row">

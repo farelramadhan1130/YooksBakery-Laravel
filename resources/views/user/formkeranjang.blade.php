@@ -27,17 +27,19 @@
                         <div class="card-body keranjang"></div>
                     </div>
     </div>
+    
     <script>
         $(document).ready(function(){
             $.ajax({
-                url: 'tampilkeranjang.php',
+                url: '{{route("cart.index")}}',
                 success:function(hasil){
                     $(".keranjang").html(hasil);
                 }
             })
-        }) 
+        })
     </script>
-    <script>
+    
+    <!--<script>
         $(document).ready(function(){
             $(document).on("click", ".tambahi", function(){
                 var id_produk = $(this).attr("idnya");
@@ -93,5 +95,4 @@
                 $(".kembalian").val(kembalian);
             })
         })
-    </script>
-
+    </script> -->
