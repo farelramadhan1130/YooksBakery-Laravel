@@ -28,7 +28,7 @@ class CartController extends Controller
         $cart->quantity = $request->input('quantity');
         $cart->save();
 
-        return redirect()->route('cart.index');
+        return redirect()->route('formkeranjang');
     }
 
     public function update(Request $request, Cart $cart)
@@ -40,13 +40,20 @@ class CartController extends Controller
         $cart->quantity = $request->input('quantity');
         $cart->save();
 
-        return redirect()->route('cart.index');
+        return redirect()->route('formkeranjang');
     }
 
-    public function destroy(Cart $cart)
-    {
-        $cart->delete();
+    public function destroy($item)
+{
+    $cart = Cart::find($item);
 
-        return redirect()->route('cart.index');
+    if (!$cart) {
+        // Cart not found
+        return redirect()->route('formkeranjang')->with('error', 'Cart not found.');
     }
+
+    $cart->delete();
+
+    return redirect()->route('formkeranjang')->with('success', 'Cart item has been removed.');
+}
 }

@@ -2,9 +2,9 @@
     <table>
         <thead>
             <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
+                <th>Nama</th>
+                <th>Jumlah</th>
+                <th>Harga</th>
                 <th>Subtotal</th>
                 <th>Action</th>
             </tr>
@@ -52,3 +52,20 @@
     <input type="number" name="quantity" value="1" min="1">
     <button type="submit">Add to Cart</button>
 </form>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    form {
+        display: inline;
+    }
+</style>

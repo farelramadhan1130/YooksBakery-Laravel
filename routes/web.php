@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\homeController::class, 'index'])->name('user.index');
 
-Route::get('/formkeranjang', [App\Http\Controllers\homeController::class, 'formKeranjang']);
+Route::get('/formkeranjang', [App\Http\Controllers\homeController::class, 'formKeranjang'])->name('formkeranjang');
 
 Route::get('/tampilproduk', [App\Http\Controllers\ProdukController::class, 'tampilProduk'])->name('tampilproduk');
 

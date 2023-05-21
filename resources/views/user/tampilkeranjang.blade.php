@@ -48,7 +48,7 @@ if (isset($_SESSION['keranjang']))
  <div class="row">
     <div class="col-md-11">
         <h6>{{ $item->produk->nama_produk }}</h6>
-        <span class="small text-muted"> {{ number_format($perproduk['jual_produk']) }} </span>
+        <span class="small text-muted"> {{ $item->produk->jual_produk }}</span>
         <p class="small"> X {{ $perproduk['jumlah'] }} </p>
     </div>
     <div class="col-md-1">
