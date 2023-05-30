@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Produk;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -69,5 +70,16 @@ class AuthController extends Controller
                 'data' => null
             ]);
         }
+    }
+
+    public function tampilmenu()
+    {
+        $products = Produk::all();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Daftar Produk',
+            'data' => $products
+        ]);
     }
 }
