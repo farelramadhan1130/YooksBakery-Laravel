@@ -79,7 +79,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Daftar Produk',
-            'data' => $products
+            'data' => $products->toArray()
         ]);
     }
 }
