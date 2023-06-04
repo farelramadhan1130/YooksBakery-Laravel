@@ -14,7 +14,7 @@
                 <tr>
                     <td>{{ $item->produk->nama_produk }}</td>
                     <td>
-                        <form action="{{ route('cart.update', $item) }}" method="post">
+                        <form action="{{ route('cart.update', $item->id) }}" method="post">
                             @csrf
                             @method('patch')
                             <input type="number" name="quantity" value="{{ $item->quantity }}" min="1">
@@ -35,7 +35,7 @@
         </tbody>
     </table>
 @else
-    <p>Your cart is empty.</p>
+    <p>Keranjang anda kosong.</p>
 @endif
 
 <p>Total: {{ $totalPrice }}</p>

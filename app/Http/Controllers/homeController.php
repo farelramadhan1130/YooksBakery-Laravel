@@ -10,8 +10,12 @@ class homeController extends Controller
     public function index()
     {
         return view('user.index');
+        $this->middleware('auth');
     }
     public function formkeranjang(){
         return view('user.formkeranjang');
     }
+    public function adminindex(){
+        return view('admin.index');
+    }   
 }

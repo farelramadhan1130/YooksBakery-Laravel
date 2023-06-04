@@ -12,6 +12,7 @@
             <div class="carousel-item active">
                 <img class="w-100" src="{{ asset('user/img/carousel roti-1.jpg') }}" alt="Image">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                <h4 class="text-white text-uppercase mb-md-3">Selamat Datang, {{ Auth::user()->nama_user }} </h4>
                     <div class="p-3" style="max-width: 900px;">
                         <h4 class="text-white text-uppercase mb-md-3">Yooks Bakery</h4>
                         <h1 class="display-3 text-white mb-md-4">Olahan Roti Untuk Segala Acara</h1>
@@ -186,7 +187,7 @@
         // echo"<pre>";
         // print_r($kategori);
         // echo"</pre>";
-    ? -->
+    ? --> 
     @php
     use App\Models\Kategori;
     $kategori = \App\Models\Kategori::where('id_toko', 1)
@@ -226,6 +227,11 @@
                 <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Services</h6>
                 <h1>Kenapa Harus Memilih Kami?</h1>
             </div>
+            @auth
+    ID Pengguna yang terautentikasi: {{ auth()->id() }}
+@else
+    Pengguna tidak terautentikasi
+@endauth
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="service-item bg-white text-center mb-2 py-5 px-4">
@@ -284,7 +290,7 @@
             }
         })
     });
- </script>
+    </script>
     <!-- <script>
         $(document).ready(function() {
             $.ajax({

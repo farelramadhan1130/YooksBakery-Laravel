@@ -1,5 +1,4 @@
-<?php require("koneksi.php"); ?>
-
+use Illuminate\Support\Facades\DB;
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -19,7 +18,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../assets/"
+  data-assets-path="{{asset('admin/assets/')}}"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -34,11 +33,11 @@
     <meta name="description" content="" />
 
     <!-- Link CSS Table -->\
-    <link rel="stylesheet" href="../../asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="../../asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../asset/image/image-website/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset ('asset/image/image-website/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,24 +48,24 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/css/core.css" class="template-customizer-core-css') }}" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css') }}" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/css/demo.css') }}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <script src="{{ asset ('admin/assets/js/config.js') }}"></script>
   </head>
 
   <body>
@@ -133,7 +132,7 @@
                   </g> -->
                 </svg>
               </span>
-              <img src="../assets/img/favicon/favicon.ico" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
+              <img src="{{ asset ('admin/assets/img/favicon/favicon.ico') }}" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -146,7 +145,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.php" class="menu-link">
+              <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -165,22 +164,22 @@
 
               <ul class="menu-sub">
                 <li class="menu-item active">
-                  <a href="layouts-container.php" class="menu-link">
+                  <a href="{{route('datakategori')}}" class="menu-link">
                     <div data-i18n="Container">Data Kategori</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-fluid.php" class="menu-link">
+                  <a href="{{route('datasupplier')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Supplier</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-produk.php" class="menu-link">
+                  <a href="{{route('dataproduk')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Produk</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-user.php" class="menu-link">
+                  <a href="{{route('datauser')}}" class="menu-link">
                     <div data-i18n="Fluid">Data User</div>
                   </a>
                 </li>
@@ -197,22 +196,22 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="transaksi-penjualan.php" class="menu-link">
+                  <a href="{{route('datatransaksipenjualan')}}" class="menu-link">
                     <div data-i18n="Account">Customers</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="data-pesanan-pending.php" class="menu-link">
+                  <a href="{{route('datapesananpending')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Pesanan Pending</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan.php" class="menu-link">
+                  <a href="{{route('datalaporan')}}" class="menu-link">
                     <div data-i18n="Account">Data Pesanan Lunas</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan_keuntungan.php" class="menu-link">
+                  <a href="{{route('datalaporankeuntungan')}}" class="menu-link">
                     <div data-i18n="Account">Laporan Keuntungan</div>
                   </a>
                 </li>
@@ -326,7 +325,7 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <li class="menu-item col-md-0 px-0">
-                    <a href="logout.php" class="menu-link">
+                    <a href="{{route('logout')}}" class="menu-link">
                       <i class=""></i>
                       <div data-i18n="Logout"><Button class="btn btn-primary bx bx-log-in-circle col-md-0 "> Logout</Button></div>
                     </a>
@@ -339,7 +338,7 @@
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
                   <a>
-                    Hi, <?php echo $_SESSION['User']['nama_user'] ?>
+                    Hi, {{ Auth::user()->nama_user }}
                   </a>
                 </li>
 
@@ -347,7 +346,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/<?php echo $_SESSION['User']['nama_user']?>.jpg" alt class="w-px-40 h-px-40 rounded-circle" />
+                      <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}}" alt class="w-px-40 h-px-40 rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -356,12 +355,12 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/<?php echo $_SESSION['User']['nama_user']?>.jpg" alt class="w-px-40 h-px-40 rounded-circle" />
+                              <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}} alt class="w-px-40 h-px-40 rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $_SESSION['User']['nama_user'] ?></span>
-                            <small class="text-muted"><?php echo $_SESSION['User']['level_user'] ?></small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->nama_user }}</span>
+                            <small class="text-muted">{{ Auth::user()->level }}</small>
                           </div>
                         </div>
                       </a>
@@ -394,7 +393,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.php">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -418,22 +417,21 @@
               <!-- Basic Bootstrap Table -->
               <div class="card shadow">
                 <h5 class="card-header"></h5>
-                <?php
-                //Mendapatkan ID Toko user yang login
-                $id_toko = $_SESSION['User']['id_toko'];
+                
+                <!-- //Mendapatkan ID Toko user yang login
+                // $id_toko = $_SESSION['User']['id_toko'];
 
-                $kategori =array();
-                $ambil = $koneksi ->query("SELECT * FROM kategori WHERE id_toko='$id_toko' ");
-                while($tiap = $ambil -> fetch_assoc()){
-                  $kategori[] = $tiap;
-                }
+                
 
                 // echo"<pre>";
                 // print_r($kategori);
-                // echo"</pre>";
-                ?>
+                // echo"</pre>"; -->
+                
+                $kategori = DB::table('categories')->get();
+
+
                 <div class="container col-md-0 px-2">
-                  <a href="kategori_tambah.php" class="btn btn-primary">Tambah</a>
+                  <a href="#" class="btn btn-primary">Tambah</a>
                 </div>
                 <div class="table-responsive text-nowrap p-2">
                 <table id="kategori" class="table table-bordered display" style="width:100%">
@@ -447,20 +445,21 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <?php foreach ($kategori as $key => $value): ?>
-                      <tr>
-                        <td><?php echo $key+1 ?></td>
-                        <td><?php echo $value["id_kategori"] ?></td>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?php echo $value["nama_kategori"] ?></strong></td>
-                        <td><?php echo $value["foto_kategori"] ?></td>
-                        <td>
-                        <div class='btn-group'>
-                          <a href="kategori_edit.php?id=<?php echo $value["id_kategori"] ?>" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
-                          <a href="kategori_hapus.php?id=<?php echo $value["id_kategori"] ?>" class='btn btn-danger'><i class="bx bx-trash me-1"></i></i></a>
-                        </div>
-                        </td>
-                      </tr>
-                      <?php endforeach ?>
+                    $kategori = DB::table('categories')->get();
+                    @foreach ($kategori as $key => $value)
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td>{{ $value->id_kategori }}</td>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong>{{ $value->nama_kategori }}</strong></td>
+                            <td>{{ $value->foto_kategori }}</td>
+                            <td>
+                                <div class='btn-group'>
+                                    <a href="kategori_edit.php?id={{ $value->id_kategori }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
+                                    <a href="kategori_hapus.php?id={{ $value->id_kategori }}" class='btn btn-danger'><i class="bx bx-trash me-1"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -500,13 +499,13 @@
     <!-- Modal Tambah Kategori -->
     <?php
     //Mendapatkan ID Toko user yang login
-    $id_toko = $_SESSION['User']['id_toko'];
+    // $id_toko = $_SESSION['User']['id_toko'];
 
-    $supplier =array();
-    $ambil = $koneksi ->query("SELECT * FROM supplier WHERE id_toko='$id_toko' ");
-    while($tiap = $ambil -> fetch_assoc()){
-      $supplier[] = $tiap;
-    }
+    // $supplier =array();
+    // $ambil = $koneksi ->query("SELECT * FROM supplier WHERE id_toko='$id_toko' ");
+    // while($tiap = $ambil -> fetch_assoc()){
+    //   $supplier[] = $tiap;
+    // }
 
     // echo"<pre>";
     // print_r($supplier);
@@ -562,19 +561,8 @@
     <!-- END Modal Tambah Kategori -->
 
     <!-- Modal Edit Kategori -->
-    <?php
-    //Mendapatkan ID Toko user yang login
-    $id_toko = $_SESSION['User']['id_toko'];
-    
+    $kategori = DB::table('categories')->get();
 
-    $kategori =array();
-    $ambil = $koneksi ->query("SELECT * FROM kategori WHERE  id_toko='$id_toko' ");
-    $kategori = $ambil -> fetch_assoc();
-
-    // echo"<pre>";
-    // print_r($supplier);
-    // echo"</pre>";
-    ?>
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -597,7 +585,7 @@
                     name="edit-nama"
                     id="nameWithTitle"
                     class="form-control"
-                    value="<?php echo $kategori['nama_kategori'] ?>"
+                    value="{{ $kategori['nama_kategori'] }}"
                   />
                 </div>
               </div>
@@ -616,18 +604,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset ('admin/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
     
@@ -636,25 +624,25 @@
 
     <!-- Table JS -->
     <!-- JQuery -->
-    <script src="../../asset/js/jquery.min.js"></script>
-    <script src="../../asset/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset ('asset/js/jquery.min.js') }}"></script>
+    <script src="{{ asset ('asset/js/bootstrap.bundle.min.js') }}"></script>
     
     <!-- Data Table-Bootstrap-5 -->
-    <script src="../../asset/DataTables-5/DataTables-1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="../../asset/DataTables-5/DataTables-1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset ('asset/DataTables-5/DataTables-1.13.1/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/DataTables-1.13.1/js/dataTables.bootstrap5.min.js') }}"></script>
     
     <!-- Sweet Alert -->
-    <script src="../../asset/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="{{ asset ('asset/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
 
     <!-- Button Bootstrap-5 -->
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/dataTables.buttons.min.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.bootstrap5.min.js"></script>
-    <script src="../../asset/DataTables-5/JSZip-2.5.0/jszip.min.js"></script>
-    <script src="../../asset/DataTables-5/pdfmake-0.1.36/pdfmake.js"></script>
-    <script src="../../asset/DataTables-5/pdfmake-0.1.36/vfs_fonts.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.html5.min.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.print.min.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/JSZip-2.5.0/jszip.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/pdfmake-0.1.36/pdfmake.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.colVis.min.js') }}"></script>
 
     <!-- END Table JS -->
     <script>

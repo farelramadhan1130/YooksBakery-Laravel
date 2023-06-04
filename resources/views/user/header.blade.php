@@ -74,7 +74,7 @@ if (!isset($_SESSION['User'])) {
                     <a class="text-primary pl-3" href="https://youtube.com/@himanikapolije6995">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a class="text-primary pl-3" href="logout.php">Logout
+                    <a class="text-primary pl-3" href="{{ route('logout') }}">Logout
                     </a>
                 </div>
             </div>
@@ -97,9 +97,9 @@ if (!isset($_SESSION['User'])) {
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
                     <a href="{{ url('/home') }}" class="nav-item nav-link">Home</a>
-                    <a href="#about" class="nav-item nav-link">About</a>
-                    <a href="#service" class="nav-item nav-link">Services</a>
-                    <a href="#menu" class="nav-item nav-link">Menu</a>
+                    <a href="{{ url('/home#about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/home#service') }}" class="nav-item nav-link">Services</a>
+                    <a href="{{ url('/home#menu') }}" class="nav-item nav-link">Menu</a>
                     <a href="{{ url('formkeranjang') }}" class="nav-item nav-link">Keranjang</a>
                 </div>
             </div>

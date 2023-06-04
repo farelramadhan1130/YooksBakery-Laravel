@@ -15,10 +15,13 @@ use App\Http\Controllers\API\AuthController;
 |
 */
 
-Route::post('register', [AuthController::class, 'register']);
+Route::post('register', [AuthController::class, 'register'])->name('register');
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
