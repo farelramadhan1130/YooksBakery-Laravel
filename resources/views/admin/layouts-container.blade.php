@@ -1,4 +1,4 @@
-use Illuminate\Support\Facades\DB;
+
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="{{asset('admin/assets/')}}"
+  data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\DB;
 
     <meta name="description" content="" />
 
-    <!-- Link CSS Table -->\
+    <!-- Link CSS Table -->
     <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css') }}">
 
@@ -51,9 +51,10 @@ use Illuminate\Support\Facades\DB;
     <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/css/core.css" class="template-customizer-core-css') }}" />
-    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/css/theme-default.css" class="template-customizer-theme-css') }}" />
-    <link rel="stylesheet" href="{{ asset ('admin/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -355,7 +356,8 @@ use Illuminate\Support\Facades\DB;
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}} alt class="w-px-40 h-px-40 rounded-circle" />
+                            <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg') }}" alt="" class="w-40 h-40 rounded-circle" />
+
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -426,8 +428,7 @@ use Illuminate\Support\Facades\DB;
                 // echo"<pre>";
                 // print_r($kategori);
                 // echo"</pre>"; -->
-                
-                $kategori = DB::table('categories')->get();
+
 
 
                 <div class="container col-md-0 px-2">
@@ -445,8 +446,8 @@ use Illuminate\Support\Facades\DB;
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    $kategori = DB::table('categories')->get();
-                    @foreach ($kategori as $key => $value)
+
+                    @foreach ($categories as $key => $value)
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ $value->id_kategori }}</td>
@@ -561,7 +562,6 @@ use Illuminate\Support\Facades\DB;
     <!-- END Modal Tambah Kategori -->
 
     <!-- Modal Edit Kategori -->
-    $kategori = DB::table('categories')->get();
 
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -580,13 +580,14 @@ use Illuminate\Support\Facades\DB;
               <div class="row">
                 <div class="col mb-3">
                   <label for="nameWithTitle1" class="form-label">Nama</label>
+                  @foreach ($categories as $category)
                   <input
                     type="text"
                     name="edit-nama"
                     id="nameWithTitle"
                     class="form-control"
-                    value="{{ $kategori['nama_kategori'] }}"
-                  />
+                    value="{{ $category->nama_kategori }}"/>
+                  @endforeach
                 </div>
               </div>
             </div>

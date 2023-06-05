@@ -6,6 +6,8 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoriesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
