@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     //
@@ -13,7 +13,8 @@ class AdminController extends Controller
     }
     public function datakategori()
     {
-        return view('admin.layouts-container');
+        $categories = DB::table('categories')->get();
+        return view('admin.layouts-container')->with('categories', $categories);
     }
     public function datasupplier()
     {
