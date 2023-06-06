@@ -77,7 +77,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.php" class="app-brand-link">
+            <a href="{{ route('dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -433,6 +433,7 @@
 
                 <div class="container col-md-0 px-2">
                   <a href="#" class="btn btn-primary">Tambah</a>
+                  <!-- href : kategori_tambah.php -->
                 </div>
                 <div class="table-responsive text-nowrap p-2">
                 <table id="kategori" class="table table-bordered display" style="width:100%">

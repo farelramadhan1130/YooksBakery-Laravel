@@ -18,15 +18,18 @@ class AdminController extends Controller
     }
     public function datasupplier()
     {
-        return view('admin.layouts-fluid');
+        $supplier = DB::table('supplier')->get();
+        return view('admin.layouts-fluid')->with('supplier', $supplier);
     }
     public function dataproduk()
     {
-        return view('admin.layouts-produk');
+        $products = DB::table('products')->get();
+        return view('admin.layouts-produk')->with('products', $products);
     }
     public function datauser()
     {
-        return view('admin.layouts-user');
+        $users = DB::table('users')->where('level', 'User')->get();
+        return view('admin.layouts-user')->with('users', $users);
     }
     public function datatransaksipenjualan()
     {
