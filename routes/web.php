@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('master');
 });
 
+
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('login', [UserController::class, 'login_action'])->name('login.action');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
@@ -32,6 +33,9 @@ Route::get('/home', [App\Http\Controllers\homeController::class, 'index'])->name
 Route::get('/formkeranjang', [App\Http\Controllers\homeController::class, 'formKeranjang'])->name('formkeranjang');
 
 Route::get('/tampilproduk', [App\Http\Controllers\ProdukController::class, 'tampilProduk'])->name('tampilproduk');
+Route::get('/tampilcart', [CartController::class, 'tampilcart'])->name('tampilcart');
+Route::post('/masukkeranjang', [CartController::class, 'masukkanKeKeranjang'])->name('masukkeranjang');
+
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
