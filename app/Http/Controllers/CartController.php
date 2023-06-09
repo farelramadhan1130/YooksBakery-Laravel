@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers;
 use App\Models\Produk;
 use App\Models\Cart;
@@ -12,8 +12,55 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function masukkanKeKeranjang(Request $request)
+{
+    Session::start();
+    $id_produk = $request->input('id_produk');
+    $produk = Produk::where('id_produk', $id_produk)->first();
 
-    
+    if ($produk && $produk->stock_produk > 0) {
+        if (!Session::has('keranjang.'.$id_produk)) {
+            Session::put('keranjang.'.$id_produk, 1);
+        } else {
+            $jumlahdikeranjang = Session::get('keranjang.'.$id_produk);
+            if ($produk->stock_produk > $jumlahdikeranjang) {
+                Session::put('keranjang.'.$id_produk, $jumlahdikeranjang + 1);
+            }
+        }
+    }
+}
+public function kurangiKeranjang(Request $request)
+{
+    $id_produk = $request->input('id_produk');
+
+    if (session()->has('keranjang.'.$id_produk)) {
+        if (session('keranjang.'.$id_produk) == 1) {
+            session()->forget('keranjang.'.$id_produk);
+        } else {
+            session()->put('keranjang.'.$id_produk, session('keranjang.'.$id_produk) - 1);
+        }
+    }
+}
+public function tambahkanKeranjang(Request $request)
+{
+    $id_produk = $request->input('id_produk');
+    $produk = Produk::where('id_produk', $id_produk)->first();
+
+    if ($produk && $produk->stock_produk > 0) {
+        if (!session()->has('keranjang.'.$id_produk)) {
+            session()->put('keranjang.'.$id_produk, 1);
+        } else {
+            $jumlahdikeranjang = session()->get('keranjang.'.$id_produk);
+            if ($produk->stock_produk > $jumlahdikeranjang) {
+                session()->put('keranjang.'.$id_produk, $jumlahdikeranjang + 1);
+            }
+        }
+    }
+}
+
+    public function tampilcart(){
+        return view('user.tampilcart');
+    }
     public function index()
     {
         

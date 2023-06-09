@@ -8,6 +8,9 @@ if (!isset($_SESSION['User'])) {
 }
 ?-->
 
+@php
+session()->start();
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 

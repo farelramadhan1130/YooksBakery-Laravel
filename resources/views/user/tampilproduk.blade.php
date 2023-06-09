@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @php
     use App\Models\Produk;
 
@@ -11,6 +12,7 @@
 @endphp
 <div class="row">
     @foreach ($produk as $value)
+    
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="package-item bg-white mb-2">
             <img class="img-fluid" src="{{ asset('asset/image/image-admin/produk/' . $value->foto_produk) }}" alt="" style="height:250px;width=600px;">
@@ -42,23 +44,30 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $(".link-produk").on("click", function(){
-            // Dapatkan idnya
-            var id_produk = $(this).attr("idnya");
-            $.ajax({
-                type : 'post',
-                url : 'masukkeranjang.php',
-                data : 'id_produk='+id_produk,
-                success: function(hasil){
-                    $.ajax({
-                        url: 'tampilkeranjang.php',
-                        success:function(hasil){
-                            $(".keranjang").html(hasil);
-                        }
-                    })
-                }
-            })
-        });
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(document).ready(function() {
+    $(".link-produk").on("click", function() {
+        var id_produk = $(this).attr("idnya");
+        $.ajax({
+            type: 'post',
+            url: '{{ route("masukkeranjang") }}',
+            data: { id_produk: id_produk },
+            success: function(hasil) {
+                $.ajax({
+                    url: '{{ route("tampilcart") }}',
+                    success: function(hasil) {
+                        $(".keranjang").html(hasil);
+                    }
+                })
+            }
+        })
     });
+});
+
 </script>
