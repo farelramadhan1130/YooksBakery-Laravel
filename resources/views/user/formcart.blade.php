@@ -1,4 +1,7 @@
 @include('user.header')
+@php
+    use App\Models\Produk;
+@endphp
 <body>
     <!-- Header Start -->
     <div class="container-fluid page-header">
@@ -37,47 +40,7 @@
             })
         }) 
     </script>
-    <script>
-        $(document).ready(function(){
-            $(document).on("click", ".tambahi", function(){
-                var id_produk = $(this).attr("idnya");
-                $.ajax({
-                    type : 'post',
-                    url : 'tambahkeranjang.php',
-                    data : 'id_produk='+id_produk,
-                    success: function(hasil){
-                            $.ajax({
-                                url: 'tampilkeranjang.php',
-                                success:function(hasil){
-                                $(".keranjang").html(hasil);
-                            }
-                        })
-                    }
-                })
-            })
-        })
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $(document).on("click", ".kurangi", function(){
-                var id_produk = $(this).attr("idnya");
-                $.ajax({
-                    type : 'post',
-                    url : 'kurangkeranjang.php',
-                    data : 'id_produk='+id_produk,
-                    success: function(hasil){
-                            $.ajax({
-                                url: 'tampilkeranjang.php',
-                                success:function(hasil){
-                                $(".keranjang").html(hasil);
-                            }
-                        })
-                    }
-                })
-            })
-        })
-    </script>
+    
 
     <script>
         $(document).ready(function(){

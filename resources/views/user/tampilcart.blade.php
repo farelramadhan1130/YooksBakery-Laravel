@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @php
 use App\Models\Produk;
 
@@ -82,3 +84,58 @@ if (session()->has('keranjang')) {
     <button class="btn btn-primary btn-sm">Checkout</button>
 </form>
 </body>
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+    $(document).on("click", ".tambahi", function() {
+        var tombol = $(this);
+        var id_produk = tombol.attr("idnya");
+        
+        // Mengunci tombol tambah sementara
+        tombol.prop("disabled", true);
+        
+        $.ajax({
+            type: 'post',
+            url: '{{ route("tambahkankeranjang") }}',
+            data: { id_produk: id_produk },
+            success: function(hasil) {
+                // Memuat ulang halaman setelah sukses
+                location.reload();
+            },
+            complete: function() {
+                // Membuka kembali tombol tambah setelah permintaan AJAX selesai
+                tombol.prop("disabled", false);
+            }
+        });
+    });
+
+    $(document).on("click", ".kurangi", function() {
+        var tombol = $(this);
+        var id_produk = tombol.attr("idnya");
+        
+        // Mengunci tombol kurang sementara
+        tombol.prop("disabled", true);
+        
+        $.ajax({
+            type: 'post',
+            url: '{{ route("kurangikeranjang") }}',
+            data: { id_produk: id_produk },
+            success: function(hasil) {
+                // Memuat ulang halaman setelah sukses
+                location.reload();
+            },
+            complete: function() {
+                // Membuka kembali tombol kurang setelah permintaan AJAX selesai
+                tombol.prop("disabled", false);
+            }
+        });
+    });
+});
+
+</script>

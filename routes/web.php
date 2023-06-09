@@ -35,7 +35,8 @@ Route::get('/formkeranjang', [App\Http\Controllers\homeController::class, 'formK
 Route::get('/tampilproduk', [App\Http\Controllers\ProdukController::class, 'tampilProduk'])->name('tampilproduk');
 Route::get('/tampilcart', [CartController::class, 'tampilcart'])->name('tampilcart');
 Route::post('/masukkeranjang', [CartController::class, 'masukkanKeKeranjang'])->name('masukkeranjang');
-
+Route::post('/kurangi-keranjang', [CartController::class, 'kurangiKeranjang'])->name('kurangikeranjang');
+Route::post('/tambahkan-keranjang', [CartController::class, 'tambahkanKeranjang'])->name('tambahkankeranjang');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
