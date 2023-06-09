@@ -45,12 +45,12 @@ Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart
 
 
 // Route Admin
-Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
-Route::get('/datakategori', [App\Http\Controllers\AdminController::class, 'datakategori'])->name('datakategori');
-Route::get('/datasupplier', [App\Http\Controllers\AdminController::class, 'datasupplier'])->name('datasupplier');
-Route::get('/dataproduk', [App\Http\Controllers\AdminController::class, 'dataproduk'])->name('dataproduk');
-Route::get('/datauser', [App\Http\Controllers\AdminController::class, 'datauser'])->name('datauser');
-Route::get('/datatransaksipenjualan', [App\Http\Controllers\AdminController::class, 'datatransaksipenjualan'])->name('datatransaksipenjualan');
-Route::get('/datapesananpending', [App\Http\Controllers\AdminController::class, 'datapesananpending'])->name('datapesananpending');
-Route::get('/datalaporan', [App\Http\Controllers\AdminController::class, 'datalaporan'])->name('datalaporan');
-Route::get('/datalaporankeuntungan', [App\Http\Controllers\AdminController::class, 'datalaporankeuntungan'])->name('datalaporankeuntungan');
+Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard')->middleware('admin');
+Route::get('/datakategori', [App\Http\Controllers\AdminController::class, 'datakategori'])->name('datakategori')->middleware('admin');
+Route::get('/datasupplier', [App\Http\Controllers\AdminController::class, 'datasupplier'])->name('datasupplier')->middleware('admin');
+Route::get('/dataproduk', [App\Http\Controllers\AdminController::class, 'dataproduk'])->name('dataproduk')->middleware('admin');
+Route::get('/datauser', [App\Http\Controllers\AdminController::class, 'datauser'])->name('datauser')->middleware('admin');
+Route::get('/datatransaksipenjualan', [App\Http\Controllers\AdminController::class, 'datatransaksipenjualan'])->name('datatransaksipenjualan')->middleware('admin');
+Route::get('/datapesananpending', [App\Http\Controllers\AdminController::class, 'datapesananpending'])->name('datapesananpending')->middleware('admin');
+Route::get('/datalaporan', [App\Http\Controllers\AdminController::class, 'datalaporan'])->name('datalaporan')->middleware('admin');
+Route::get('/datalaporankeuntungan', [App\Http\Controllers\AdminController::class, 'datalaporankeuntungan'])->name('datalaporankeuntungan')->middleware('admin');
