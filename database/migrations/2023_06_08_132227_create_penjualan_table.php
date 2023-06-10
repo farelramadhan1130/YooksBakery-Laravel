@@ -22,7 +22,7 @@ class CreatePenjualanTable extends Migration
             $table->integer('total_penjualan');
             $table->string('metode_pembayaran');
             $table->string('bukti')->nullable();
-            $table->string('status_pesanan');
+            $table->string('status_pesanan')->default('Pending');
             $table->timestamps();
         });
     }

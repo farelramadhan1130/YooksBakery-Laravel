@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Produk;
 use App\Models\User;
+use App\Models\Penjualan;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -81,5 +82,39 @@ class AuthController extends Controller
             'message' => 'Daftar Produk',
             'data' => $products->toArray()
         ]);
+    }
+
+    public function checkout(Request $request)
+    {
+        // Validasi inputan dari user
+        $request->validate([
+            'id_user' => 'required',
+            'id_toko' => 'required',
+            'tanggal_penjualan' => 'required',
+            'tanggal_ambil_penjualan' => 'required',
+            'total_penjualan' => 'required',
+            'metode_pembayaran' => 'required',
+            'bukti' => 'required',
+            'status_pesanan' => 'required',
+        ]);
+
+        // Buat penjualan baru
+        $penjualan = Penjualan::create([
+            'id_user' => $request->input('id_user'),
+            'id_toko' => $request->input('id_toko'),
+            'tanggal_penjualan' => $request->input('tanggal_penjualan'),
+            'tanggal_ambil_penjualan' => $request->input('tanggal_ambil_penjualan'),
+            'total_penjualan' => $request->input('total_penjualan'),
+            'metode_pembayaran' => $request->input('metode_pembayaran'),
+            'bukti' => $request->input('bukti'),
+            'status_pesanan' => $request->input('status_pesanan'),
+        ]);
+
+        // Jika penjualan berhasil dibuat, kembalikan respons
+        if ($penjualan) {
+            return response()->json(['message' => 'Checkout berhasil'], 200);
+        } else {
+            return response()->json(['message' => 'Checkout gagal'], 400);
+        }
     }
 }

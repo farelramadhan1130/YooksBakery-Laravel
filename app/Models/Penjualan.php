@@ -25,6 +25,6 @@ class Penjualan extends Model
 
     public function toko()
     {
-        return $this->belongsTo(Toko::class, 'id_toko');
+        return $this->belongsTo(Produk::class, 'id_toko');
     }
 }
