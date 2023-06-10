@@ -13,7 +13,7 @@ class homeController extends Controller
         $this->middleware('auth');
     }
     public function formkeranjang(){
-        return view('user.formkeranjang');
+        return view('user.formcart');
     }
     public function adminindex(){
         return view('admin.index');

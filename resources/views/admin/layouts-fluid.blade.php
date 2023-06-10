@@ -435,7 +435,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($supplier as $key => $value)
+                      @foreach ($suppliers as $key => $value)
                       <tr>
                         <td>{{ $key+1 }}</td>
                         <td>{{ $value->id }}</td>

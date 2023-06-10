@@ -217,7 +217,7 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <li class="menu-item col-md-0 px-0">
-                    <a href="logout.php" class="menu-link">
+                    <a href="{{route('logout')}}" class="menu-link">
                       <i class=""></i>
                       <div data-i18n="Logout"><Button class="btn btn-primary bx bx-log-in-circle col-md-0 "> Logout</Button></div>
                     </a>

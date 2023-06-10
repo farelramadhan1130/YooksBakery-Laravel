@@ -18,8 +18,8 @@ class AdminController extends Controller
     }
     public function datasupplier()
     {
-        $supplier = DB::table('supplier')->get();
-        return view('admin.layouts-fluid')->with('supplier', $supplier);
+        $suppliers = DB::table('suppliers')->get();
+        return view('admin.layouts-fluid')->with('suppliers', $suppliers);
     }
     public function dataproduk()
     {

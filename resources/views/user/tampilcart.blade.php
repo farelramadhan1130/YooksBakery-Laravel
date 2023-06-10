@@ -45,44 +45,46 @@ if (session()->has('keranjang')) {
 
 
 
-<form method="POST" action="checkout.php" target="_blank" enctype="multipart/form-data">
+<form method="POST" action="{{route('checkout')}}" enctype="multipart/form-data">
+    @csrf
     <div class="mb-3">
         <label for="">Total</label>
-        <Input type="number" name="total" class="form-control total" value="<?php echo $total ?>" readonly></Input>
+        <input type="number" name="total" class="form-control total" value="{{ $total }}" readonly>
     </div>
     <!-- <div class="mb-3">
         <label for="">Bayar</label>
-        <Input type="number" name="bayar" class="form-control bayar" required></Input>
+        <input type="number" name="bayar" class="form-control bayar" required>
     </div>
     <div class="mb-3">
         <label for="">Kembalian</label>
-        <Input type="number" name="kembalian" class="form-control kembalian" readonly></Input>
+        <input type="number" name="kembalian" class="form-control kembalian" readonly>
     </div> -->
     <div class="mb-3">
         <label for="">No. Telepon</label>
-        <input type="text" name="telepon" class="form-control" placeholder="+62" value="">
+        <input type="text" name="telepon" class="form-control" placeholder="+62" value="{{ Auth::user()->telepon_user }}">
     </div>
     <div class="mb-3">
         <label>Tanggal Pengambilan</label>
-        <input type="text" name="date" id="date" class="form-control"></input>
+        <input type="text" name="date" id="date" class="form-control">
     </div>
-</br>
+    <br>
     <p>Silahkan transfer terlebih dahulu sesuai harga total ke akun Bank kami sebelum klik tombol checkout.</p>
     <div class="mb-3">
-    <label>Pilih Akun Bank</label>
-    <select class="form-control" name="bank">
-        <option value="">Pilih</option>
-        <option>Bank BNI - 092213345687 a/n Yooks Teknik</option>
-        <option>Bank BCA - 5220304356 a/n Yooks Bakery</option>
-        <option>DANA - 083857726588 a/n Fajar</option>
-    </select>
-    
+        <label>Pilih Akun Bank</label>
+        <select class="form-control" name="bank">
+            <option value="">Pilih</option>
+            <option>Bank BNI - 092213345687 a/n Yooks Teknik</option>
+            <option>Bank BCA - 5220304356 a/n Yooks Bakery</option>
+            <option>DANA - 083857726588 a/n Fajar</option>
+        </select>
+    </div>
     <div class="mb-3">
         <label>Bukti Pembayaran</label>
-        <input type="file" name="foto" class="form-control" accept="image/png, image/gif, image/jpeg"></input>
+        <input type="file" name="foto" class="form-control" accept="image/png, image/gif, image/jpeg">
     </div>
-    <button class="btn btn-primary btn-sm">Checkout</button>
+    <button class="btn btn-primary btn-sm" type="submit">Checkout</button>
 </form>
+
 </body>
 <script>
 $.ajaxSetup({

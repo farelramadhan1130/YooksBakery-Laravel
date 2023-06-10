@@ -8,8 +8,9 @@
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
                 <h3 class="display-4 text-white text-uppercase">Keranjang</h3>
+                <h4 class="display-7 text-white text-uppercase">{{Auth::user()->nama_user}}</h4>
                 <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{{ url('/home') }}">Home</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
                     <p class="m-0 text-uppercase">Keranjang</p>
                 </div>
@@ -42,7 +43,7 @@
     </script>
     
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             $(document).on("keyup", ".bayar", function(){
                 // Dapatkan inputan bayar
@@ -57,4 +58,4 @@
             })
         })
     </script>
-
+ -->
