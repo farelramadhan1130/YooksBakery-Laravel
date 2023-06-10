@@ -15,8 +15,8 @@ class CreatePenjualanTable extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
-            $table->integer('id_toko');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_toko');
             $table->datetime('tanggal_penjualan');
             $table->datetime('tanggal_ambil_penjualan');
             $table->integer('total_penjualan');
@@ -24,6 +24,13 @@ class CreatePenjualanTable extends Migration
             $table->string('bukti')->nullable();
             $table->string('status_pesanan');
             $table->timestamps();
+
+            $table->foreign('id_user')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->foreign('id_toko')
+                ->references('id_toko')->on('toko')
+                ->onDelete('cascade');
         });
     }
 
