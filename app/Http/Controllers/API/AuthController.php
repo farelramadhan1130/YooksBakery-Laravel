@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Produk;
 use App\Models\User;
 use App\Models\Penjualan;
+use App\Models\Checkout;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -99,7 +100,7 @@ class AuthController extends Controller
         ]);
 
         // Buat penjualan baru
-        $penjualan = Penjualan::create([
+        $penjualan = Checkout::create([
             'id_user' => $request->input('id_user'),
             'id_toko' => $request->input('id_toko'),
             'tanggal_penjualan' => $request->input('tanggal_penjualan'),
