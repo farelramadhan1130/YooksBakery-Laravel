@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PenjualanController;
 
 /*
@@ -22,7 +23,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::get('tampilmenu', [AuthController::class, 'tampilmenu']);
 
-Route::post('checkout', [PenjualanController::class, 'checkout']);
+Route::post('checkout', [AuthController::class, 'checkout']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

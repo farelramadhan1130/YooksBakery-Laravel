@@ -15,7 +15,7 @@ class CheckoutController extends Controller
     public function store(Request $request)
 {
     // ... kode sebelumnya ...
-    
+
     // Simpan bukti pembayaran
     if ($request->hasFile('foto')) {
         $file = $request->file('foto');
