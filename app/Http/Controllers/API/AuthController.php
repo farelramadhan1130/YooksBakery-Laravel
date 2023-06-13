@@ -53,10 +53,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
             $auth = Auth::user();
             $success['token'] = User::findOrFail($auth->id)->createToken('auth_token')->plainTextToken;
-            $success['id_user'] = $auth->id;
+            $success['id'] = $auth->id;
             $success['nama_user'] = $auth->nama_user;
             $success['email'] = $auth->email;
             $success['password'] = $auth->password;
