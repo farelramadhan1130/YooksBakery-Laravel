@@ -91,16 +91,30 @@ class AuthController extends Controller
     public function checkout(Request $request)
     {
         // Validasi inputan dari user
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_user' => 'required',
             'id_toko' => 'required',
             'tanggal_penjualan' => 'required',
             'tanggal_ambil_penjualan' => 'required',
             'total_penjualan' => 'required',
             'metode_pembayaran' => 'required',
-            'bukti' => 'required',
+            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi bukti pembayaran (disesuaikan dengan kebutuhan)
             'status_pesanan' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada Kesalahan',
+                'data' => $validator->errors()
+            ], 400);
+        }
+
+        // Simpan bukti pembayaran
+        $file = $request->file('bukti');
+        $namaFile = $file->getClientOriginalName();
+        $tujuanUpload = 'asset/image/image-admin/bukti';
+        $file->move($tujuanUpload, $namaFile);
 
         // Buat penjualan baru
         $penjualan = Checkout::create([
@@ -110,7 +124,7 @@ class AuthController extends Controller
             'tanggal_ambil_penjualan' => $request->input('tanggal_ambil_penjualan'),
             'total_penjualan' => $request->input('total_penjualan'),
             'metode_pembayaran' => $request->input('metode_pembayaran'),
-            'bukti' => $request->input('bukti'),
+            'bukti' => $namaFile, // Simpan nama file bukti pembayaran
             'status_pesanan' => $request->input('status_pesanan'),
         ]);
 
