@@ -90,28 +90,48 @@ class AuthController extends Controller
 
     public function checkout(Request $request)
     {
-        // Simpan bukti pembayaran
-        $file = $request->input('memek');
-        $namaFile = $request->id_user . '.jpg';
-        $tujuanUpload = 'asset/image/image-admin/bukti/' . $namaFile;
+        // Validasi inputan dari user
+        $validator = Validator::make($request->all(), [
+            'id_user' => 'required',
+            'id_toko' => 'required',
+            'tanggal_penjualan' => 'required',
+            'tanggal_ambil_penjualan' => 'required',
+            'total_penjualan' => 'required',
+            'metode_pembayaran' => 'required',
+            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi bukti pembayaran (disesuaikan dengan kebutuhan)
+            'status_pesanan' => 'required',
+        ]);
 
-        //Mengkonversi data gambar dari base64 ke file gambar
-        file_put_contents($tujuanUpload, base64_decode($file));
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada Kesalahan',
+                'data' => $validator->errors()
+            ], 400);
+        }
+
+        // Simpan bukti pembayaran
+        if ($request->hasFile('bukti')) {
+            $file = $request->file('bukti');
+            $namaFile = $file->getClientOriginalName();
+            $tujuanUpload = 'asset/image/image-admin/bukti';
+            $file->move($tujuanUpload, $namaFile);
+        }
 
         // Buat penjualan baru
-        $penjualan = new Checkout();
-        $penjualan->id_user = $request->id_user;
-        $penjualan->id_toko = $request->id_toko;
-        $penjualan->tanggal_penjualan = $request->tanggal_penjualan;
-        $penjualan->tanggal_ambil_penjualan = $request->tanggal_ambil_penjualan;
-        $penjualan->total_penjualan = $request->total_penjualan;
-        $penjualan->metode_pembayaran = $request->metode_pembayaran;
-        $penjualan->bukti = $namaFile;
-        $penjualan->status_pesanan = $request->status_pesanan;
-
+        $penjualan = Checkout::create([
+            'id_user' => $request->input('id_user'),
+            'id_toko' => $request->input('id_toko'),
+            'tanggal_penjualan' => $request->input('tanggal_penjualan'),
+            'tanggal_ambil_penjualan' => $request->input('tanggal_ambil_penjualan'),
+            'total_penjualan' => $request->input('total_penjualan'),
+            'metode_pembayaran' => $request->input('metode_pembayaran'),
+            'bukti' => isset($namaFile) ? $namaFile : null, // Simpan nama file bukti pembayaran jika ada, jika tidak ada, simpan null
+            'status_pesanan' => $request->input('status_pesanan'),
+        ]);
 
         // Jika penjualan berhasil dibuat, kembalikan respons
-        if ($penjualan->save()) {
+        if ($penjualan) {
             return response()->json(['message' => 'Checkout berhasil'], 200);
         } else {
             return response()->json(['message' => 'Checkout gagal'], 400);
