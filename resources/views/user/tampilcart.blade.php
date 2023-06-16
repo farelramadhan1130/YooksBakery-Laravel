@@ -1,5 +1,19 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ asset('user/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
+<script src="{{ asset('user/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('user/bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js') }}"></script>
 
+
+  <script>
+  $( function() {
+    $( "#date" ).datepicker({
+      autoclose:true,
+      todayHighlight:true,
+      format:'yyyy-mm-dd',
+      language: 'id'
+    });
+  } );
+  </script>
 @php
 use App\Models\Produk;
 

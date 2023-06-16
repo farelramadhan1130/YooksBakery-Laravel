@@ -1,28 +1,9 @@
-<?php include '../koneksi.php'; 
-date_default_timezone_set('Asia/Jakarta');
-//Mendapatkan ID Toko user yang login
-$id_toko = $_SESSION['User']['id_toko'];
+@php
+use App\Models\Checkout;
+use App\Models\Produk;
+use Illuminate\Support\Facades\DB;
+@endphp
 
-//Mendapatkan ID Penjualan yang di detailkan dari URL
-$id_penjualan = $_GET['id'];
-
-//Ambil dari tabel Penjualan yang idnya ini
-$ambil = $koneksi->query("SELECT * FROM penjualan LEFT JOIN user ON penjualan.id_user=user.id_user 
-                        WHERE penjualan.id_penjualan='$id_penjualan' AND penjualan.id_toko='$id_toko' ");
-$penjualan = $ambil->fetch_assoc();
-
-$produk = array();
-$ambil = $koneksi->query("SELECT * FROM penjualan_produk WHERE id_penjualan='$id_penjualan' AND id_toko='$id_toko' ");
-while($tiap = $ambil->fetch_assoc()){
-$produk[] = $tiap; 
-}
-// echo "<pre>";
-//                 print_r($penjualan);
-//                 print_r($produk );
-//                 echo "<pre>";
-// }
-
-?>
 <script>
     window.print();
     window.onfocus=function() {window.close();}
@@ -32,7 +13,7 @@ $produk[] = $tiap;
 <html lang="en">
 <head>
     <title>Nota Pemesanan</title>
-    <link rel="stylesheet" href="../asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset ('asset/css/bootstrap.min.css') }}">
 </head>
 <body onload="window.print()">
 <div class="table-responsive text-nowrap">
@@ -57,26 +38,26 @@ $produk[] = $tiap;
             <tr>
                 <td>Id Pemesanan</td>
                 <td>:</td>
-                <td><?php echo $id_penjualan?></td>
+                <td>{{ $notapenjualan->id }}</td>
             <tr>
-                <td>Pelanggan</td>
+                <td> Nama Pelanggan</td>
                 <td>:</td>
-                <td><?php echo $penjualan['nama_user']?></td>
+                <td>{{ $notapenjualan->user->nama_user }}</td>
             </tr>
             <tr>
                 <td>No.Telp</td>
                 <td>:</td>
-                <td><?php echo $penjualan['telepon_user']?></td>
+                <td>{{ $notapenjualan->user->telepon_user }}</td>
             </tr>
             <tr>
                 <td>Tanggal Pemesanan</td>
                 <td>:</td>
-                <td><?php echo $penjualan['tanggal_penjualan']?></td>
+                <td>{{ $notapenjualan->tanggal_penjualan }}</td>
             </tr>
             <tr>
                 <td>Tanggal Pengambilan Pesanan</td>
                 <td>:</td>
-                <td><?php echo $penjualan['tanggal_ambil_penjualan']?></td>
+                <td>{{ $notapenjualan->tanggal_ambil_penjualan }}</td>
             </tr>
         </tbody>
     </table>
@@ -90,25 +71,28 @@ $produk[] = $tiap;
                         <th>Subtotal</th>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <?php $keuntungan = 0; ?>
-                      <?php foreach ($produk as $key => $value): ?>
-                        <?php $keuntungan += ($value['harga_produk'] - $value['biaya_produk']) * $value['jumlah_produk'] ?>
-                      <tr>
-                        <td><?php echo $key+1 ?></td>
-                        <td><?php echo $value["nama_produk"] ?></td>
-                        <td>Rp. <?php echo number_format($value["harga_produk"]) ?></td>
-                        <td><?php echo $value["jumlah_produk"] ?></td>
-                        <td>Rp. <?php echo number_format($value["subtotal_produk"]) ?></td>
-                      </tr>
-                      <?php endforeach ?>
-                    </tbody>
+                    @php $keuntungan = 0 @endphp
+                    @foreach($produk as $key => $value)
+                        @php
+                            $keuntungan += ($value->harga_produk - $value->biaya_produk) * $value->jumlah_produk;
+                        @endphp
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td>{{ $value->nama_produk }}</td>
+                            <td>Rp. {{ number_format($value->harga_produk) }}</td>
+                            <td>{{ $value->jumlah_produk }}</td>
+                            <td>Rp. {{ number_format($value->subtotal_produk) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
                     <tfoot>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td><b>Total</b></td>
-                        <td>Rp. <?php echo number_format($penjualan['total_penjualan']) ?></td>
+                        <td>Rp. {{ $notapenjualan->total_penjualan }}</td>
                     </tr>
                     </tfoot>
     </table>
