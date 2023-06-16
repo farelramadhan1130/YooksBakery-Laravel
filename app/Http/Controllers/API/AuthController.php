@@ -93,13 +93,11 @@ class AuthController extends Controller
         // Validasi inputan dari user
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
-            'id_toko' => 'required',
             'tanggal_penjualan' => 'required',
             'tanggal_ambil_penjualan' => 'required',
             'total_penjualan' => 'required',
             'metode_pembayaran' => 'required',
-            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi bukti pembayaran (disesuaikan dengan kebutuhan)
-            'status_pesanan' => 'required',
+            'bukti' => 'required', // Validasi bukti pembayaran (disesuaikan dengan kebutuhan)
         ]);
 
         if ($validator->fails()) {
@@ -111,30 +109,41 @@ class AuthController extends Controller
         }
 
         // Simpan bukti pembayaran
-        if ($request->hasFile('bukti')) {
-            $file = $request->file('bukti');
-            $namaFile = $file->getClientOriginalName();
-            $tujuanUpload = 'asset/image/image-admin/bukti';
-            $file->move($tujuanUpload, $namaFile);
+        $targetDir = 'asset/image/image-admin/bukti';
+        $image = $request->input('bukti');
+        $userId = $request->input('id_user');
+
+        if (!file_exists($targetDir)) {
+            // Create Upload Image Folder
+            mkdir($targetDir, 0777, true);
         }
 
-        // Buat penjualan baru
-        $penjualan = Checkout::create([
-            'id_user' => $request->input('id_user'),
-            'id_toko' => $request->input('id_toko'),
-            'tanggal_penjualan' => $request->input('tanggal_penjualan'),
-            'tanggal_ambil_penjualan' => $request->input('tanggal_ambil_penjualan'),
-            'total_penjualan' => $request->input('total_penjualan'),
-            'metode_pembayaran' => $request->input('metode_pembayaran'),
-            'bukti' => isset($namaFile) ? $namaFile : null, // Simpan nama file bukti pembayaran jika ada, jika tidak ada, simpan null
-            'status_pesanan' => $request->input('status_pesanan'),
-        ]);
+        // Set Random Image File Name With Time
+        $date = date('dmY');
+        $fileName = $userId . '_' . $date . '.jpeg';
+        $targetPath = $targetDir . '/' . $fileName;
 
-        // Jika penjualan berhasil dibuat, kembalikan respons
-        if ($penjualan) {
-            return response()->json(['message' => 'Checkout berhasil'], 200);
+        if (file_put_contents($targetPath, base64_decode($image))) {
+            // Buat penjualan baru
+            $penjualan = new Checkout();
+            $penjualan->id_user = $request->input('id_user');
+            $penjualan->id_toko = 1;
+            $penjualan->tanggal_penjualan = $request->input('tanggal_penjualan');
+            $penjualan->tanggal_ambil_penjualan = $request->input('tanggal_ambil_penjualan');
+            $penjualan->total_penjualan = $request->input('total_penjualan');
+            $penjualan->metode_pembayaran = $request->input('metode_pembayaran');
+            $penjualan->bukti = $fileName;
+            $penjualan->status_pesanan = "Pending";
+            $penjualan->save();
+
+            // Jika penjualan berhasil dibuat, kembalikan respons
+            if ($penjualan) {
+                return response()->json(['message' => 'Checkout berhasil'], 200);
+            } else {
+                return response()->json(['message' => 'Checkout gagal'], 400);
+            }
         } else {
-            return response()->json(['message' => 'Checkout gagal'], 400);
+            return response()->json(['message' => 'Gagal menyimpan bukti pembayaran'], 400);
         }
     }
 }
