@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Produk;
 use App\Models\PenjualanProduk;
 use App\Models\Checkout;
@@ -49,10 +50,10 @@ class CheckoutController extends Controller
         foreach ($request->session()->get('keranjang') as $id_produk => $jumlah) {
             $produk = Produk::find($id_produk);
 
-            $harga_beli = $produk->biaya_produk;
-            $harga_jual = $produk->jual_produk;
-            $nama_jual = $produk->nama_produk;
-            $subtotal_jual = $harga_jual * $jumlah;
+        $harga_beli = $produk->biaya_produk;
+        $harga_jual = $produk->jual_produk;
+        $nama_jual = $produk->nama_produk;
+        $subtotal_jual = $harga_jual * $jumlah;
 
             PenjualanProduk::create([
                 'id_penjualan' => $id_penjualan,
@@ -70,5 +71,20 @@ class CheckoutController extends Controller
             $produk->save();
         }
         Session::forget('keranjang');
-    }
+        return redirect()->route('nota_customer', ['id' => $id_penjualan]);
+}
+public function show($id)
+{
+    // Lakukan pemrosesan yang diperlukan berdasarkan $id_penjualan
+    // Misalnya, ambil data nota dari database berdasarkan $id_penjualan
+    $produk = DB::table('penjualan_produk')
+        ->where('id_penjualan', $id)
+        ->get()
+        ->toArray();
+
+    $notapenjualan = Checkout::with('user')->find($id);
+    // dd($notapenjualan);
+    // Tampilkan halaman nota dengan data yang diperlukan
+    return view('user.nota_customer', compact('notapenjualan', 'produk'));
+}
 }

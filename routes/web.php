@@ -39,6 +39,8 @@ Route::post('/masukkeranjang', [CartController::class, 'masukkanKeKeranjang'])->
 Route::post('/kurangi-keranjang', [CartController::class, 'kurangiKeranjang'])->name('kurangikeranjang');
 Route::post('/tambahkan-keranjang', [CartController::class, 'tambahkanKeranjang'])->name('tambahkankeranjang');
 
+
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
 Route::patch('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
@@ -59,3 +61,5 @@ Route::get('/admin/datalaporankeuntungan', [App\Http\Controllers\AdminController
 
 //Route Checkout
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
+Route::get('/nota_customer/{id}', [CheckoutController::class, 'show'])->name('nota_customer');
+
