@@ -53,9 +53,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
             $auth = Auth::user();
             $success['token'] = User::findOrFail($auth->id)->createToken('auth_token')->plainTextToken;
+            $success['id'] = $auth->id;
             $success['nama_user'] = $auth->nama_user;
             $success['email'] = $auth->email;
             $success['password'] = $auth->password;
@@ -88,16 +91,32 @@ class AuthController extends Controller
     public function checkout(Request $request)
     {
         // Validasi inputan dari user
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_user' => 'required',
             'id_toko' => 'required',
             'tanggal_penjualan' => 'required',
             'tanggal_ambil_penjualan' => 'required',
             'total_penjualan' => 'required',
             'metode_pembayaran' => 'required',
-            'bukti' => 'required',
+            'bukti' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi bukti pembayaran (disesuaikan dengan kebutuhan)
             'status_pesanan' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ada Kesalahan',
+                'data' => $validator->errors()
+            ], 400);
+        }
+
+        // Simpan bukti pembayaran
+        if ($request->hasFile('bukti')) {
+            $file = $request->file('bukti');
+            $namaFile = $file->getClientOriginalName();
+            $tujuanUpload = 'asset/image/image-admin/bukti';
+            $file->move($tujuanUpload, $namaFile);
+        }
 
         // Buat penjualan baru
         $penjualan = Checkout::create([
@@ -107,7 +126,7 @@ class AuthController extends Controller
             'tanggal_ambil_penjualan' => $request->input('tanggal_ambil_penjualan'),
             'total_penjualan' => $request->input('total_penjualan'),
             'metode_pembayaran' => $request->input('metode_pembayaran'),
-            'bukti' => $request->input('bukti'),
+            'bukti' => isset($namaFile) ? $namaFile : null, // Simpan nama file bukti pembayaran jika ada, jika tidak ada, simpan null
             'status_pesanan' => $request->input('status_pesanan'),
         ]);
 
