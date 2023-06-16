@@ -71,5 +71,20 @@ class CheckoutController extends Controller
             $produk->save();
         }
         Session::forget('keranjang');
-    }
+        return redirect()->route('nota_customer', ['id' => $id_penjualan]);
+}
+public function show($id)
+{
+    // Lakukan pemrosesan yang diperlukan berdasarkan $id_penjualan
+    // Misalnya, ambil data nota dari database berdasarkan $id_penjualan
+    $produk = DB::table('penjualan_produk')
+        ->where('id_penjualan', $id)
+        ->get()
+        ->toArray();
+
+    $notapenjualan = Checkout::with('user')->find($id);
+    // dd($notapenjualan);
+    // Tampilkan halaman nota dengan data yang diperlukan
+    return view('user.nota_customer', compact('notapenjualan', 'produk'));
+}
 }
