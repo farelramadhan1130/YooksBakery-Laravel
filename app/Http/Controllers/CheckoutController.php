@@ -50,17 +50,17 @@ class CheckoutController extends Controller
         foreach ($request->session()->get('keranjang') as $id_produk => $jumlah) {
             $produk = Produk::find($id_produk);
 
-        $harga_beli = $produk->biaya_produk;
-        $harga_jual = $produk->jual_produk;
-        $nama_jual = $produk->nama_produk;
-        $subtotal_jual = $harga_jual * $jumlah;
+            $harga_beli = $produk->biaya_produksi;
+            $harga_jual = $produk->jual_produk;
+            $nama_jual = $produk->nama_produk;
+            $subtotal_jual = $harga_jual * $jumlah;
 
             PenjualanProduk::create([
                 'id_penjualan' => $id_penjualan,
                 'id_produk' => $id_produk,
                 'id_toko' => $id_toko,
                 'nama_produk' => $nama_jual,
-                'biaya_produk' => $harga_beli,
+                'biaya_produksi' => $harga_beli,
                 'harga_produk' => $harga_jual,
                 'jumlah_produk' => $jumlah,
                 'subtotal_produk' => $subtotal_jual,
@@ -72,19 +72,19 @@ class CheckoutController extends Controller
         }
         Session::forget('keranjang');
         return redirect()->route('nota_customer', ['id' => $id_penjualan]);
-}
-public function show($id)
-{
-    // Lakukan pemrosesan yang diperlukan berdasarkan $id_penjualan
-    // Misalnya, ambil data nota dari database berdasarkan $id_penjualan
-    $produk = DB::table('penjualan_produk')
-        ->where('id_penjualan', $id)
-        ->get()
-        ->toArray();
+    }
+    public function show($id)
+    {
+        // Lakukan pemrosesan yang diperlukan berdasarkan $id_penjualan
+        // Misalnya, ambil data nota dari database berdasarkan $id_penjualan
+        $produk = DB::table('penjualan_produk')
+            ->where('id_penjualan', $id)
+            ->get()
+            ->toArray();
 
-    $notapenjualan = Checkout::with('user')->find($id);
-    // dd($notapenjualan);
-    // Tampilkan halaman nota dengan data yang diperlukan
-    return view('user.nota_customer', compact('notapenjualan', 'produk'));
-}
+        $notapenjualan = Checkout::with('user')->find($id);
+        // dd($notapenjualan);
+        // Tampilkan halaman nota dengan data yang diperlukan
+        return view('user.nota_customer', compact('notapenjualan', 'produk'));
+    }
 }

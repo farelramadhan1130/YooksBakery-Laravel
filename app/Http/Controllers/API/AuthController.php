@@ -9,6 +9,7 @@ use App\Models\Checkout;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PenjualanProduk;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -98,6 +99,12 @@ class AuthController extends Controller
             'total_penjualan' => 'required',
             'metode_pembayaran' => 'required',
             'bukti' => 'required', // Validasi bukti pembayaran (disesuaikan dengan kebutuhan)
+
+            'biaya_produk' => 'required',
+            'harga_produk' => 'required',
+            'nama_produk' => 'required',
+            'jumlah_produk' => 'required',
+            'id_produk' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -105,13 +112,17 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => 'Ada Kesalahan',
                 'data' => $validator->errors()
-            ], 400);
+            ]);
         }
 
         // Simpan bukti pembayaran
         $targetDir = 'asset/image/image-admin/bukti';
         $image = $request->input('bukti');
         $userId = $request->input('id_user');
+        $tokoId = 1;
+        $jumlahProduk = $request->input('jumlah_produk');
+        $hargaProduk = $request->input('harga_produk');
+        $produk = Produk::find($request->input('id_produk'));
 
         if (!file_exists($targetDir)) {
             // Create Upload Image Folder
@@ -125,25 +136,67 @@ class AuthController extends Controller
 
         if (file_put_contents($targetPath, base64_decode($image))) {
             // Buat penjualan baru
-            $penjualan = new Checkout();
-            $penjualan->id_user = $request->input('id_user');
-            $penjualan->id_toko = 1;
-            $penjualan->tanggal_penjualan = $request->input('tanggal_penjualan');
-            $penjualan->tanggal_ambil_penjualan = $request->input('tanggal_ambil_penjualan');
-            $penjualan->total_penjualan = $request->input('total_penjualan');
-            $penjualan->metode_pembayaran = $request->input('metode_pembayaran');
-            $penjualan->bukti = $fileName;
-            $penjualan->status_pesanan = "Pending";
-            $penjualan->save();
+            $penjualan = Checkout::create([
+                'id_user' => $userId,
+                'id_toko' => $tokoId,
+                'tanggal_penjualan' => $request->input('tanggal_penjualan'),
+                'tanggal_ambil_penjualan' => $request->input('tanggal_ambil_penjualan'),
+                'total_penjualan' => $request->input('total_penjualan'),
+                'metode_pembayaran' => $request->input('metode_pembayaran'),
+                'bukti' => $fileName,
+                'status_pesanan' => "Pending",
+            ]);
+
+            $penjualanproduk = PenjualanProduk::create([
+                'id_penjualan' => $userId,
+                'id_toko' => $tokoId,
+                'id_produk' => $request->input('id_produk'),
+                'nama_produk' => $request->input('nama_produk'),
+                'biaya_produk' => $request->input('biaya_produk'),
+                'harga_produk' => $request->input('harga_produk'),
+                'jumlah_produk' => $request->input('jumlah_produk'),
+                'subtotal_produk' => $jumlahProduk * $hargaProduk,
+            ]);
+
+            // Kurangi Stock Produk itu
+            $produk->stock_produk -= $jumlahProduk;
+            $produk->save();
 
             // Jika penjualan berhasil dibuat, kembalikan respons
-            if ($penjualan) {
-                return response()->json(['message' => 'Checkout berhasil'], 200);
+            if ($penjualan && $penjualanproduk) {
+                $data = [
+                    'penjualan' => $penjualan->toArray(),
+                    'penjualan_produk' => $penjualanproduk->toArray(),
+                ];
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Checkout berhasil',
+                    'data' => $data,
+                ]);
             } else {
-                return response()->json(['message' => 'Checkout gagal'], 400);
+                $errorMessages = [];
+                if (!$penjualan) {
+                    $errorMessages[] = 'Gagal membuat data penjualan';
+                }
+                if (!$penjualanproduk) {
+                    $errorMessages[] = 'Gagal membuat data penjualan produk';
+                }
+                if (method_exists($penjualan, 'getErrors')) {
+                    $errorMessages = array_merge($errorMessages, $penjualan->getErrors());
+                }
+                if (method_exists($penjualanproduk, 'getErrors')){
+                    $errorMessages = array_merge($errorMessages, $penjualanproduk->getErrors());
+                }
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Checkout gagal',
+                    'data' => $errorMessages,
+                ]);
             }
         } else {
-            return response()->json(['message' => 'Gagal menyimpan bukti pembayaran'], 400);
+            return response()->json([
+                'message' => 'Gagal menyimpan bukti pembayaran'
+            ]);
         }
     }
 }
