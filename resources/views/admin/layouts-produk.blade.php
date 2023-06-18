@@ -453,9 +453,9 @@
                         <td>{{ $value->id_produk }}</td>
                         <td>{{ $value-> kode_produk }}</td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $value->nama_produk }}</strong></td>
-                        <td>Rp. {{ $value->biaya_produk }}</td>
-                        <td>Rp. {{ $value->jual_produk }}</td>
-                        <td>Rp. {{ $value->harga_coret }}</td>
+                        <td>Rp. {{ number_format($value->biaya_produk) }}</td>
+                        <td>Rp. {{ number_format($value->jual_produk) }}</td>
+                        <td>Rp. {{ number_format($value->harga_coret) }}</td>
                         <td>{{ $value->stock_produk }}</td>
                         <td>{{ $value->tanggal_produksi }}</td>
                         <td>{{ $value->keterangan }}</td>

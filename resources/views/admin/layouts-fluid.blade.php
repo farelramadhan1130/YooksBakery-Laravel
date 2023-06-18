@@ -435,11 +435,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($suppliers as $key => $value)
+                      @foreach ($supplier as $key => $value)
                       <tr>
                         <td>{{ $key+1 }}</td>
                         <td>{{ $value->id }}</td>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $value->nama_supplier }}</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $value->nama }}</strong></td>
                         <td>
                         <div class='btn-group'>
                           <a href="supplier_edit.php?id={{ $value->id }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;

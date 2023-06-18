@@ -1,4 +1,3 @@
-<?php require("koneksi.php"); ?>
 
 <!DOCTYPE html>
 
@@ -29,16 +28,16 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title> Laporan Keuntungan</title>
+    <title>Data Keuntungan</title>
 
     <meta name="description" content="" />
 
     <!-- Link CSS Table -->
-    <link rel="stylesheet" href="../../asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="../../asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset ('asset/image/image-website/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,24 +48,25 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <script src="{{ asset ('admin/assets/js/config.js') }}"></script>
   </head>
 
   <body>
@@ -77,7 +77,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.php" class="app-brand-link">
+            <a href="{{ route('dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -133,7 +133,7 @@
                   </g> -->
                 </svg>
               </span>
-              <img src="../assets/img/favicon/favicon.ico" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
+              <img src="{{ asset ('admin/assets/img/favicon/favicon.ico') }}" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -146,7 +146,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.php" class="menu-link">
+              <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -165,22 +165,22 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="layouts-container.php" class="menu-link">
+                  <a href="{{route('datakategori')}}" class="menu-link">
                     <div data-i18n="Container">Data Kategori</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-fluid.php" class="menu-link">
+                  <a href="{{route('datasupplier')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Supplier</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-produk.php" class="menu-link">
+                  <a href="{{route('dataproduk')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Produk</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-user.php" class="menu-link">
+                  <a href="{{route('datauser')}}" class="menu-link">
                     <div data-i18n="Fluid">Data User</div>
                   </a>
                 </li>
@@ -188,7 +188,7 @@
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">DATA TRANSAKSI</span>
+              <span class="menu-header-text">Data Transaksi</span>
             </li>
             <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -197,22 +197,22 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="transaksi-penjualan.php" class="menu-link">
+                  <a href="{{route('datatransaksipenjualan')}}" class="menu-link">
                     <div data-i18n="Account">Customers</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="data-pesanan-pending.php" class="menu-link">
+                  <a href="{{route('datapesananpending')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Pesanan Pending</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan.php" class="menu-link">
+                  <a href="{{route('datalaporan')}}" class="menu-link">
                     <div data-i18n="Account">Data Pesanan Lunas</div>
                   </a>
                 </li>
                 <li class="menu-item active">
-                  <a href="laporan_keuntungan.php" class="menu-link">
+                  <a href="{{route('datalaporankeuntungan')}}" class="menu-link">
                     <div data-i18n="Account">Laporan Keuntungan</div>
                   </a>
                 </li>
@@ -312,7 +312,7 @@
           <!-- Navbar -->
 
           <nav
-            class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
           >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -326,7 +326,7 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <li class="menu-item col-md-0 px-0">
-                    <a href="logout.php" class="menu-link">
+                    <a href="{{route('logout')}}" class="menu-link">
                       <i class=""></i>
                       <div data-i18n="Logout"><Button class="btn btn-primary bx bx-log-in-circle col-md-0 "> Logout</Button></div>
                     </a>
@@ -338,8 +338,8 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                <a>
-                    Hi, <?php echo $_SESSION['User']['nama_user'] ?>
+                  <a>
+                    Hi, {{ Auth::user()->nama_user }}
                   </a>
                 </li>
 
@@ -347,7 +347,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/<?php echo $_SESSION['User']['nama_user']?>.jpg" alt class="w-px-40 h-px-40 rounded-circle" />
+                      <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}}" alt class="w-px-40 h-px-40 rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -356,12 +356,13 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/<?php echo $_SESSION['User']['nama_user']?>.jpg" alt class="w-px-40 h-px-40 rounded-circle" />
+                            <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg') }}" alt="" class="w-40 h-40 rounded-circle" />
+
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $_SESSION['User']['nama_user'] ?></span>
-                            <small class="text-muted"><?php echo $_SESSION['User']['level_user'] ?></small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->nama_user }}</span>
+                            <small class="text-muted">{{ Auth::user()->level }}</small>
                           </div>
                         </div>
                       </a>
@@ -394,7 +395,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="logout.php">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -417,57 +418,18 @@
             <div class="container-fluid flex-grow-1 container-p-y">
               <!-- Basic Bootstrap Table -->
               <div class="card shadow">
-                <h5 class="card-header">
-                <?php
-                //Jika ada inputan tglm dan tgls
-                if (isset($_POST['tglm'])AND $_POST['tgls']) {
-                    $tglm = $_POST['tglm'];
-                    $tgls = $_POST['tgls'];
-                } else {
-                    $tgls = date("Y-m-d");
-                    $tglm = (new Datetime($tgls))->modify("-1 month")->format("Y-m-d");  
-                }
-
-                $laporan = array();
-                $id_toko = $_SESSION['User']['id_toko'];
-
-                $period = new DatePeriod(new DateTime($tglm), new DateInterval('P1D'), new DateTime($tgls));
-                foreach($period as $date){
-
-                  $pertanggal = array();
-                  $tanggal = $date->format("Y-m-d");
-                  $keuntungantanggal = 0;
-                  $transaksitanggal= 0;
-
-                  $ambil = $koneksi->query("SELECT * FROM penjualan_produk 
-                                            LEFT JOIN penjualan ON penjualan_produk.id_penjualan = penjualan.id_penjualan
-                                            WHERE penjualan.id_toko='$id_toko' AND DATE (tanggal_penjualan)='$tanggal' ");
-                  while ($tiap = $ambil->fetch_assoc()) 
-                  {
-                    $transaksitanggal+=$tiap['harga_produk'];
-                    $keuntungantanggal+=($tiap['harga_produk'] - $tiap['biaya_produk']) * $tiap['jumlah_produk'];
-                  }
-                  $pertanggal['tanggal'] = $tanggal;
-                  $pertanggal['keuntungan'] = $keuntungantanggal;
-                  $pertanggal['transaksi'] = $transaksitanggal;
-                  $laporan[] = $pertanggal;
-                }
-                // echo"<pre>";
-                // print_r($laporan);
-                // echo"</pre>";
-                ?>
-                </h5>
-                <div class="card border-0">
+                <h5 class="card-header"></h5>
+                <!-- <div class="card border-0">
                     <div class="card-body">
                         <form method="POST">
                             <div class="row">
                                 <div class="col-md-3">
                                     <label>Mulai</label>
-                                    <input type="date" name="tglm" class="form-control" value="<?php echo $tglm ?>">
+                                    <input type="date" name="tglm" class="form-control" value="">
                                 </div>
                                 <div class="col-md-3">
                                     <label>Selesai</label>
-                                    <input type="date" name="tglm" class="form-control" value="<?php echo $tgls ?>">
+                                    <input type="date" name="tglm" class="form-control" value="">
                                 </div>
                                 <div class="col-md-3">
                                     <label>&nbsp;</label><br>
@@ -476,40 +438,46 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <hr>
                 <div class="table-responsive text-nowrap p-2">
                 <table id="produk" class="table table-bordered display" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Tanggal Penjualan</th>
-                        <th>Transaksi</th>
-                        <th>Keuntungan</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        <?php $totalkeuntungan = 0; ?>
-                        <?php $totaltransaksi = 0; ?>
-                        <?php foreach ($laporan as $key => $value): ?>
-                            <?php $totalkeuntungan+=$value['keuntungan'] ?>
-                            <?php $totaltransaksi+=$value['transaksi'] ?>
-                            <tr>
-                                <td><?php echo $key+1 ?></td>
-                                <td><?php echo date("d M Y", strtotime($value['tanggal'])) ?></td>
-                                <td><?php echo number_format($value['transaksi']) ?></td>
-                                <td><?php echo number_format($value['keuntungan']) ?></td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">Total</td>
-                            <td><?php echo number_format($totaltransaksi) ?></td>
-                            <td><?php echo number_format($totalkeuntungan) ?></td>
-                        </tr>
-                    </tfoot>
-                  </table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Tanggal Penjualan</th>
+            <th>Transaksi</th>
+            <th>Keuntungan</th>
+        </tr>
+    </thead>
+    <tbody class="table-border-bottom-0">
+        @php
+        $totalkeuntungan = 0;
+        $totaltransaksi = 0;
+        @endphp
+        @foreach ($laporan as $key => $value)
+        @php
+        $totalkeuntungan += $value['keuntungan'];
+        $totaltransaksi += $value['transaksi'];
+        @endphp
+        <tr>
+            <td>{{ $key+1 }}</td>
+            <td>{{ date("d M Y", strtotime($value['tanggal'])) }}</td>
+            <td>{{ number_format($value['transaksi']) }}</td>
+            <td>{{ number_format($value['keuntungan']) }}</td>
+        </tr>
+        @endforeach
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Total</td>
+            <td>{{ number_format($totaltransaksi) }}</td>
+            <td>{{ number_format($totalkeuntungan) }}</td>
+        </tr>
+    </tfoot>
+</table>
+
+
                 </div>
               </div>
               <!--/ Basic Bootstrap Table -->
@@ -525,7 +493,7 @@
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Farel-Comel</a>
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder"></a>
                 </div>
               </div>
             </footer>
@@ -545,18 +513,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset ('admin/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
 
@@ -571,25 +539,25 @@
     <!-- Fungsi Tabel JS -->
   <!-- Table JS -->
     <!-- JQuery -->
-    <script src="../../asset/js/jquery.min.js"></script>
-    <script src="../../asset/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset ('asset/js/jquery.min.js') }}"></script>
+    <script src="{{ asset ('asset/js/bootstrap.bundle.min.js') }}"></script>
     
     <!-- Data Table-Bootstrap-5 -->
-    <script src="../../asset/DataTables-5/DataTables-1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="../../asset/DataTables-5/DataTables-1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset ('asset/DataTables-5/DataTables-1.13.1/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/DataTables-1.13.1/js/dataTables.bootstrap5.min.js') }}"></script>
     
     <!-- Sweet Alert -->
-    <script src="../../asset/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="{{ asset ('asset/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
 
     <!-- Button Bootstrap-5 -->
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/dataTables.buttons.min.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.bootstrap5.min.js"></script>
-    <script src="../../asset/DataTables-5/JSZip-2.5.0/jszip.min.js"></script>
-    <script src="../../asset/DataTables-5/pdfmake-0.1.36/pdfmake.js"></script>
-    <script src="../../asset/DataTables-5/pdfmake-0.1.36/vfs_fonts.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.html5.min.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.print.min.js"></script>
-    <script src="../../asset/DataTables-5/Buttons-2.3.3/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/JSZip-2.5.0/jszip.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/pdfmake-0.1.36/pdfmake.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset ('asset/DataTables-5/Buttons-2.3.3/js/buttons.colVis.min.js') }}"></script>
 
     <!-- END Table JS -->
     <script>
