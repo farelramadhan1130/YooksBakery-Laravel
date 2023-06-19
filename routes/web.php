@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\crudAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +63,10 @@ Route::get('/admin/datalaporankeuntungan', [App\Http\Controllers\AdminController
 //Route Checkout
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout');
 Route::get('/nota_customer/{id}', [CheckoutController::class, 'show'])->name('nota_customer');
+
+//Route CRUD Admin
+Route::get('/admin/datakategori/tambah', [CrudAdminController::class, 'kategoriTambah'])->name('kategori.tambah')->middleware('admin');;
+Route::post('/admin/datakategori/simpan', [CrudAdminController::class, 'simpanKategori'])->name('kategori.simpan')->middleware('admin');;
+Route::delete('/admin/datakategori/hapus/{id}', [CrudAdminController::class, 'hapusKategori'])->name('kategori.hapus')->middleware('admin');
+
 

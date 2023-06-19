@@ -432,7 +432,7 @@
 
 
                 <div class="container col-md-0 px-2">
-                  <a href="#" class="btn btn-primary">Tambah</a>
+                  <a href="{{ route ('kategori.tambah') }}" class="btn btn-primary">Tambah</a>
                   <!-- href : kategori_tambah.php -->
                 </div>
                 <div class="table-responsive text-nowrap p-2">
@@ -456,8 +456,12 @@
                             <td>{{ $value->foto_kategori }}</td>
                             <td>
                                 <div class='btn-group'>
-                                    <a href="kategori_edit.php?id={{ $value->id_kategori }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
-                                    <a href="kategori_hapus.php?id={{ $value->id_kategori }}" class='btn btn-danger'><i class="bx bx-trash me-1"></i></a>
+                                <a href="{{ route('kategori.edit', ['id' => $value->id_kategori]) }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
+                                <form action="{{ route('kategori.hapus', ['id' => $value->id_kategori]) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="bx bx-trash me-1"></i></button>
+                                </form>
                                 </div>
                             </td>
                         </tr>
