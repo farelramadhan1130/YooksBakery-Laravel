@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use DateTime;
 use DateInterval;
 use DatePeriod;
+use App\Models\User;
+use App\Models\PenjualanProduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
@@ -12,7 +14,26 @@ class AdminController extends Controller
     //
     public function index()
     {
-        return view('admin.index');
+        $userCount = User::count();
+        $transaksiCount = PenjualanProduk::count();
+        $allData = DB::table('products')
+            ->leftJoin('categories', 'categories.id_kategori', '=', 'products.id_kategori')
+            ->select('categories.nama_kategori as nama', DB::raw('COUNT(products.id_produk) as jumlah'))
+            ->groupBy('products.id_kategori')
+            ->get();
+
+        // Set data
+        $data = [];
+
+        foreach ($allData as $val) {
+            $data[] = [
+                'country' => $val->nama,
+                'value' => $val->jumlah,
+            ];
+        }
+
+        // Mengirim data ke view
+        return view('admin.index', compact('userCount', 'transaksiCount', 'data'));
     }
 
     public function datakategori()
@@ -106,4 +127,5 @@ class AdminController extends Controller
     
         return view('admin.laporan_keuntungan')->with('laporan', $laporan);
     }
+
 }
