@@ -422,7 +422,7 @@
                 
                 </h5>
                 <div class="container col-md-0 px-2">
-                  <a href="#" class="btn btn-primary">Tambah</a>
+                  <a href="{{ route ('produk.tambah') }}" class="btn btn-primary">Tambah</a>
                   <!-- href : produk_tambah.php -->
                   <p class="text-muted">*Catatan : Keterangan roti dan stok roti akan berubah menjadi kadaluarsa dan 0 secara otomatis apabila roti telah melewati 3 hari dari tanggal produksi</p>
                 </div>

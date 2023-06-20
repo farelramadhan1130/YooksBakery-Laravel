@@ -50,7 +50,7 @@ class CheckoutController extends Controller
         foreach ($request->session()->get('keranjang') as $id_produk => $jumlah) {
             $produk = Produk::find($id_produk);
 
-            $harga_beli = $produk->biaya_produksi;
+            $harga_beli = $produk->biaya_produk;
             $harga_jual = $produk->jual_produk;
             $nama_jual = $produk->nama_produk;
             $subtotal_jual = $harga_jual * $jumlah;
@@ -60,7 +60,7 @@ class CheckoutController extends Controller
                 'id_produk' => $id_produk,
                 'id_toko' => $id_toko,
                 'nama_produk' => $nama_jual,
-                'biaya_produksi' => $harga_beli,
+                'biaya_produk' => $harga_beli,
                 'harga_produk' => $harga_jual,
                 'jumlah_produk' => $jumlah,
                 'subtotal_produk' => $subtotal_jual,

@@ -68,5 +68,8 @@ Route::get('/nota_customer/{id}', [CheckoutController::class, 'show'])->name('no
 Route::get('/admin/datakategori/tambah', [CrudAdminController::class, 'kategoriTambah'])->name('kategori.tambah')->middleware('admin');;
 Route::post('/admin/datakategori/simpan', [CrudAdminController::class, 'simpanKategori'])->name('kategori.simpan')->middleware('admin');;
 Route::delete('/admin/datakategori/hapus/{id}', [CrudAdminController::class, 'hapusKategori'])->name('kategori.hapus')->middleware('admin');
+Route::put('/admin/datakategori/update/{id}', [CrudAdminController::class, 'updateKategori'])->name('kategori.update');
+Route::get('/admin/datakategori/show/{id}', [CrudAdminController::class, 'show'])->name('kategori.show');
 
-
+Route::get('/admin/dataproduk/tambah', [CrudAdminController::class, 'produkTambah'])->name('produk.tambah');
+Route::post('/admin/dataproduk/simpan', [CrudAdminController::class, 'produkSimpan'])->name('produk.simpan');

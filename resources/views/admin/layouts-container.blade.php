@@ -456,7 +456,7 @@
                             <td>{{ $value->foto_kategori }}</td>
                             <td>
                                 <div class='btn-group'>
-                                <a href="{{ route('kategori.edit', ['id' => $value->id_kategori]) }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
+                                <a href="{{ route('kategori.show', ['id' => $value->id_kategori]) }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
                                 <form action="{{ route('kategori.hapus', ['id' => $value->id_kategori]) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')

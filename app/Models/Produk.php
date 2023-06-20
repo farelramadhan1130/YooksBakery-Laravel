@@ -15,27 +15,24 @@ class Produk extends Model
         'id_produk',
         'id_toko',
         'kode_produk',
-        'nama',
-        'biaya_produksi',
-        'harga_jual',
+        'nama_produk',
+        'biaya_produk',
+        'jual_produk',
         'harga_coret',
-        'stok',
-        'tgl_produksi',
-        'keterangan',
-        'tgl_kadaluarsa',
+        'stock_produk',
+        'tanggal_produksi',
+        'keterangan_produk',
         'foto_produk',
-        'deskripsi_produk',
     ];
 
     // Atur tipe data kolom
     protected $casts = [
         'id_produk' => 'integer',
         'id_toko' => 'integer',
-        'biaya_produksi' => 'integer',
-        'harga_jual' => 'integer',
+        'biaya_produk' => 'integer',
+        'jual_produk' => 'integer',
         'harga_coret' => 'integer',
-        'stok' => 'integer',
-        'tgl_produksi' => 'date',
-        'tgl_kadaluarsa' => 'date',
+        'stock_produk' => 'integer',
+        'tanggal_produksi' => 'date',
     ];
 }

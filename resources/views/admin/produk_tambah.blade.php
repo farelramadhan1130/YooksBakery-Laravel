@@ -13,8 +13,6 @@
   } );
   </script>
 
-<?php require("koneksi.php"); ?>
-
 <!DOCTYPE html>
 
 <!-- =========================================================
@@ -44,15 +42,16 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Tambah Produk</title>
+    <title>Data Produk</title>
 
     <meta name="description" content="" />
 
     <!-- Link CSS Table -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset ('asset/image/image-website/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,34 +62,28 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
-
-    <!-- Sweet Alert -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="../../asset/plugins/sweetalert/sweetalert2.all.min.js"></script>
-    <script src="../../asset/js/bootstrap.bundle.min.js"></script>
-    
+    <script src="{{ asset ('admin/assets/js/config.js') }}"></script>
   </head>
 
   <body>
-  
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -98,7 +91,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.php" class="app-brand-link">
+            <a href="{{ route('dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -154,7 +147,7 @@
                   </g> -->
                 </svg>
               </span>
-              <img src="../assets/img/favicon/favicon.ico" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
+              <img src="{{ asset ('admin/assets/img/favicon/favicon.ico') }}" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -166,8 +159,8 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item ">
-              <a href="index.php" class="menu-link">
+            <li class="menu-item">
+              <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -185,23 +178,23 @@
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-container.php" class="menu-link">
+                <li class="menu-item ">
+                  <a href="{{route('datakategori')}}" class="menu-link">
                     <div data-i18n="Container">Data Kategori</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="layouts-fluid.php" class="menu-link">
+                <li class="menu-item ">
+                  <a href="{{route('datasupplier')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Supplier</div>
                   </a>
                 </li>
                 <li class="menu-item active">
-                  <a href="layouts-produk.php" class="menu-link">
+                  <a href="{{route('dataproduk')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Produk</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-user.php" class="menu-link">
+                  <a href="{{route('datauser')}}" class="menu-link">
                     <div data-i18n="Fluid">Data User</div>
                   </a>
                 </li>
@@ -218,25 +211,113 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="transaksi-penjualan.php" class="menu-link">
+                  <a href="{{route('datatransaksipenjualan')}}" class="menu-link">
                     <div data-i18n="Account">Customers</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="data-pesanan-pending.php" class="menu-link">
+                  <a href="{{route('datapesananpending')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Pesanan Pending</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan.php" class="menu-link">
+                  <a href="{{route('datalaporan')}}" class="menu-link">
                     <div data-i18n="Account">Data Pesanan Lunas</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan_keuntungan.php" class="menu-link">
+                  <a href="{{route('datalaporankeuntungan')}}" class="menu-link">
                     <div data-i18n="Account">Laporan Keuntungan</div>
                   </a>
                 </li>
+                <!-- <li class="menu-item">
+                  <a href="pages-account-settings-account.php" class="menu-link">
+                    <div data-i18n="Account">Account</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-account-settings-notifications.php" class="menu-link">
+                    <div data-i18n="Notifications">Notifications</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-account-settings-connections.php" class="menu-link">
+                    <div data-i18n="Connections">Connections</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Authentications">Authentications</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="auth-login-basic.php" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">Login</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="auth-register-basic.php" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">Register</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="auth-forgot-password-basic.php" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">Forgot Password</div>
+                  </a>
+                </li>
+              </ul>
+            </li>=
+
+            Forms & Tables
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+            <Forms
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Elements">Form Elements</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="forms-basic-inputs.php" class="menu-link">
+                    <div data-i18n="Basic Inputs">Basic Inputs</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="forms-input-groups.php" class="menu-link">
+                    <div data-i18n="Input groups">Input groups</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Layouts">Form Layouts</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="form-layouts-vertical.php" class="menu-link">
+                    <div data-i18n="Vertical Form">Vertical Form</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="form-layouts-horizontal.php" class="menu-link">
+                    <div data-i18n="Horizontal Form">Horizontal Form</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!Tables 
+            <li class="menu-item">
+              <a href="tables-basic.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">Tables</div>
+              </a>
+            </li>
+          </ul> -->
         </aside>
         <!-- / Menu -->
 
@@ -258,7 +339,12 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx fs-4 lh-0"></i>
+                  <li class="menu-item col-md-0 px-0">
+                    <a href="{{route('logout')}}" class="menu-link">
+                      <i class=""></i>
+                      <div data-i18n="Logout"><Button class="btn btn-primary bx bx-log-in-circle col-md-0 "> Logout</Button></div>
+                    </a>
+                  </li>
                 </div>
               </div>
               <!-- /Search -->
@@ -267,7 +353,7 @@
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
                   <a>
-                  Hi, <?php echo $_SESSION['User']['nama_user'] ?>
+                    Hi, {{ Auth::user()->nama_user }}
                   </a>
                 </li>
 
@@ -275,7 +361,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/<?php echo $_SESSION['User']['nama_user']?>.jpg" alt class="w-px-40 h-px-40 rounded-circle" />
+                      <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}}" alt class="w-px-40 h-px-40 rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -284,12 +370,13 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/<?php echo $_SESSION['User']['nama_user']?>.jpg" alt class="w-px-40 h-px-40 rounded-circle" />
+                            <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg') }}" alt="" class="w-40 h-40 rounded-circle" />
+
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $_SESSION['User']['nama_user'] ?></span>
-                            <small class="text-muted"><?php echo $_SESSION['User']['level_user'] ?></small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->nama_user }}</span>
+                            <small class="text-muted">{{ Auth::user()->level }}</small>
                           </div>
                         </div>
                       </a>
@@ -298,16 +385,31 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.php">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
                       </a>
                     </li>
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="logout.php">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -321,29 +423,7 @@
 
           <!-- / Navbar -->
 
-              <?php
-                //Mendapatkan ID Toko user yang login
-                $id_toko = $_SESSION['User']['id_toko'];
-
-                // <!-- Data Supplier -->
-                $supplier =array();
-                $ambil = $koneksi ->query("SELECT * FROM supplier WHERE id_toko='$id_toko' ");
-                while($tiap = $ambil -> fetch_assoc()){
-                  $supplier[] = $tiap;
-                }
-                
-                // <!-- Data Kategori -->
-                $kategori =array();
-                $ambil = $koneksi ->query("SELECT * FROM kategori WHERE id_toko='$id_toko' ");
-                while($tiap = $ambil -> fetch_assoc()){
-                  $kategori[] = $tiap;
-                }
-
-                // echo"<pre>";
-                // print_r($supplier);
-                // echo"</pre>";
-              ?>
-
+            
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -351,50 +431,34 @@
         <div class="container-fluid flex-grow-1 container-p-y">
               <!-- Basic Bootstrap Table -->
             <div class="card shadow">
-                <h5 class="card-header">Data Produk
-                <?php
-                //Mendapatkan ID Toko user yang login
-                $id_toko = $_SESSION['User']['id_toko'];
-
-                $supplier =array();
-                $ambil = $koneksi ->query("SELECT * FROM supplier WHERE id_toko='$id_toko' ");
-                while($tiap = $ambil -> fetch_assoc()){
-                  $supplier[] = $tiap;
-                }
-
-                // echo"<pre>";
-                // print_r($supplier);
-                // echo"</pre>";
-                ?>
-                </h5>
+                <h5 class="card-header">Data Produk</h5>
                 <div class="table-responsive text-nowrap p-2">
                     <div class="card border-0 shadow">
                         <div class="card-header bg-primary text-white">Tambah Produk</div>
                             <div class="card-body">
-                                <form method="POST" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('produk.simpan') }}" enctype="multipart/form-data">
+                              @csrf
                                     <div class="row">
                                         <div class="col-md-4 mb-3">
                                             <label>Supplier</label>
                                             <select class="form-control" name="id_supplier">
                                                 <option value="">Pilih</option>
-                                                <?php foreach ($supplier as $key => $value): ?>
-                                        
-                                                <option value="<?php echo $value["id_supplier"]?>">
-                                                    <?php echo $value["nama_supplier"] ?>
-                                                </option>
-                                                <?php endforeach ?>
+                                                @foreach ($supplier as $value)
+                                                    <option value="{{ $value->id }}">
+                                                        {{ $value->nama }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label>Kategori</label>
                                             <select class="form-control" name="id_kategori">
                                                 <option value="">Pilih</option>
-                                                <?php foreach ($kategori as $key => $value): ?>
-                                                
-                                                <option value="<?php echo $value["id_kategori"] ?>">
-                                                    <?php echo $value["nama_kategori"] ?>
-                                                </option>
-                                                <?php endforeach ?>
+                                                @foreach ($kategori as $value)
+                                                    <option value="{{ $value->id_kategori }}">
+                                                        {{ $value->nama_kategori }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-4 mb-3">
@@ -436,7 +500,7 @@
                                         <label>Keterangan Produk</label>
                                         <textarea class="form-control" name="keterangan" cols="30" rows="5"></textarea>
                                     </div>
-                                    <button class="btn btn-primary" name="simpan">Simpan</button>
+                                    <button class="btn btn-primary" type="submit" >Simpan</button>
                                 </form>
                             </div>
                         </div>
@@ -445,46 +509,6 @@
             </div>
         </div>
             <!-- / Content -->
-        <?php 
-        if(isset($_POST['simpan'])){
-            $id_toko = $_SESSION['User']['id_toko'];
-            $nama = $_POST['nama'];
-            $id_supplier = $_POST['id_supplier'];
-            $id_kategori = $_POST['id_kategori'];
-            $kode = $_POST['kode'];
-            $beli = $_POST['beli'];
-            $jual = $_POST['jual'];
-            $hargacoret = $_POST['coret'];
-            $stock = $_POST['stock'];
-            $tanggal_prod = $_POST['date'];
-            $keterangan = $_POST['keterangan'];
-            $namafoto = $_FILES['foto']['name'];
-            $lokasifoto = $_FILES['foto']['tmp_name'];
-            
-
-            if(!empty($lokasifoto)){
-                move_uploaded_file($lokasifoto, "../../asset/image/image-admin/produk/".$namafoto);
-                $koneksi->query("INSERT INTO produk (id_toko, id_kategori, id_supplier, nama_produk, 
-                kode_produk, biaya_produk, jual_produk, harga_coret, stock_produk, tanggal_produksi, foto_produk, keterangan_produk) VALUES ('$id_toko', '$id_kategori', '$id_supplier', 
-                '$nama', '$kode', '$beli', '$jual', '$hargacoret', '$stock', '$tanggal_prod', '$namafoto', '$keterangan' )");    
-            }
-            // echo "<script>alert('data tersimpan')</script>";
-            // echo "<script>location='layouts-produk.php'</script>";
-            echo "<script>
-            Swal.fire({
-                icon: 'success',
-                title: 'INPUT DATA PRODUK BERHASIL',
-                text: 'Data Produk Telah Bertambah'
-            }).then((result) => {
-                window.location.href = 'layouts-produk.php'
-            })
-        </script>";
-        } /*else {
-            $koneksi->query("INSERT INTO produk (id_toko, id_kategori, id_supplier, nama_produk, 
-            kode_produk, biaya_produk, jual_produk, stock_produk, keterangan_produk) VALUES ('$id_toko', '$id_kategori', '$id_supplier', 
-            '$nama', '$kode', '$beli', '$jual', '$stock', '$keterangan' )");    
-        }*/
-        ?>
 
 
             <!-- Footer -->
@@ -516,18 +540,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset ('admin/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
 

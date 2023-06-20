@@ -1,4 +1,3 @@
-<?php require("koneksi.php"); ?>
 
 <!DOCTYPE html>
 
@@ -29,15 +28,16 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Edit Data Kategori</title>
+    <title>Data Kategori</title>
 
     <meta name="description" content="" />
 
     <!-- Link CSS Table -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css') }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset ('asset/image/image-website/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,29 +48,25 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
-    
-    <!-- Sweet Alert 2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="../../asset/plugins/sweetalert/sweetalert2.all.min.js"></script>
-    <!-- Sweet Alert 2 END -->
+    <script src="{{ asset ('admin/assets/js/config.js') }}"></script>
   </head>
 
   <body>
@@ -81,7 +77,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.php" class="app-brand-link">
+            <a href="{{ route('dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -137,7 +133,7 @@
                   </g> -->
                 </svg>
               </span>
-              <img src="../assets/img/favicon/favicon.ico" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
+              <img src="{{ asset ('admin/assets/img/favicon/favicon.ico') }}" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -150,7 +146,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.php" class="menu-link">
+              <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -159,7 +155,7 @@
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">PERUSAHAAN</span>
             </li>
-            
+
             <!-- Layouts -->
             <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -168,23 +164,23 @@
               </a>
 
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="layouts-container.php" class="menu-link">
+                <li class="menu-item active">
+                  <a href="{{route('datakategori')}}" class="menu-link">
                     <div data-i18n="Container">Data Kategori</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-fluid.php" class="menu-link">
+                  <a href="{{route('datasupplier')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Supplier</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-produk.php" class="menu-link">
+                  <a href="{{route('dataproduk')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Produk</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-user.php" class="menu-link">
+                  <a href="{{route('datauser')}}" class="menu-link">
                     <div data-i18n="Fluid">Data User</div>
                   </a>
                 </li>
@@ -201,17 +197,22 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="transaksi-penjualan.php" class="menu-link">
+                  <a href="{{route('datatransaksipenjualan')}}" class="menu-link">
                     <div data-i18n="Account">Customers</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan.php" class="menu-link">
-                    <div data-i18n="Account">Laporan Penjualan</div>
+                  <a href="{{route('datapesananpending')}}" class="menu-link">
+                    <div data-i18n="Fluid">Data Pesanan Pending</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan_keuntungan.php" class="menu-link">
+                  <a href="{{route('datalaporan')}}" class="menu-link">
+                    <div data-i18n="Account">Data Pesanan Lunas</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('datalaporankeuntungan')}}" class="menu-link">
                     <div data-i18n="Account">Laporan Keuntungan</div>
                   </a>
                 </li>
@@ -254,11 +255,11 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li>=
 
-            <!-- Forms & Tables 
+            Forms & Tables
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
-            <!-- Forms 
+            <Forms
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
@@ -295,7 +296,7 @@
                 </li>
               </ul>
             </li>
-            <!-- Tables 
+            <!Tables 
             <li class="menu-item">
               <a href="tables-basic.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
@@ -311,7 +312,7 @@
           <!-- Navbar -->
 
           <nav
-            class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
           >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -324,13 +325,12 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                  <li class="menu-item col-md-0 px-0">
+                    <a href="{{route('logout')}}" class="menu-link">
+                      <i class=""></i>
+                      <div data-i18n="Logout"><Button class="btn btn-primary bx bx-log-in-circle col-md-0 "> Logout</Button></div>
+                    </a>
+                  </li>
                 </div>
               </div>
               <!-- /Search -->
@@ -338,8 +338,8 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                <a>
-                    Hi, <?php echo $_SESSION['User']['nama_user'] ?>
+                  <a>
+                    Hi, {{ Auth::user()->nama_user }}
                   </a>
                 </li>
 
@@ -347,7 +347,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/8.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}}" alt class="w-px-40 h-px-40 rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -356,12 +356,13 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/8.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg') }}" alt="" class="w-40 h-40 rounded-circle" />
+
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $_SESSION['User']['nama_user'] ?></span>
-                            <small class="text-muted"><?php echo $_SESSION['User']['level_user'] ?></small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->nama_user }}</span>
+                            <small class="text-muted">{{ Auth::user()->level }}</small>
                           </div>
                         </div>
                       </a>
@@ -394,7 +395,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.php">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -407,7 +408,6 @@
           </nav>
 
           <!-- / Navbar -->
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -416,58 +416,26 @@
               <!-- Basic Bootstrap Table -->
             <div class="card shadow">
                 <h5 class="card-header">Data Kategori
-                <?php
-                //Mendapatkan ID Toko user yang login
-                $id_kategori = $_GET['id'];
-                $id_toko = $_SESSION['User']['id_toko'];
-
-                $kategori =array();
-                $ambil = $koneksi ->query("SELECT * FROM kategori WHERE id_kategori='$id_kategori' AND id_toko='$id_toko' ");
-                $kategori = $ambil -> fetch_assoc();
-
-                // echo"<pre>";
-                // print_r($supplier);
-                // echo"</pre>";
-                ?>
                 </h5>
                 <div class="table-responsive text-nowrap p-2">
                     <div class="card border-0 shadow">
                         <div class="card-header bg-primary text-white">Edit Kategori</div>
-                            <div class="card-body">
-                                <form method="POST">
-                                    <div class="mb-3">
-                                        <label>Nama Kategori</label>
-                                        <input type="text" name="nama" class="form-control" value="<?php echo $kategori['nama_kategori'] ?>">
-                                    </div>
-                                    <button class="btn btn-primary" name="simpan">Update</button>
-                                </form>
-                            </div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('kategori.update', ['id' => $kategori->id_kategori]) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    <label>Nama Kategori</label>
+                                    <input type="text" name="nama" class="form-control" value="{{ $kategori->nama_kategori }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
             <!-- / Content -->
-        <?php 
-        if(isset($_POST['simpan'])){
-            $nama = $_POST['nama'];
-            $id_toko = $_SESSION['User']['id_toko'];
-
-            $ambil = $koneksi->query("UPDATE kategori SET nama_kategori='$nama' WHERE id_kategori='$id_kategori' AND id_toko='$id_toko'");
-
-            if (isset($ambil)) {
-                echo "<script>
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'EDIT KATEGORI BERHASIL',
-                            text: 'Data Kategori Telah Terupdate'
-                        }).then((result) => {
-                            window.location.href = 'layouts-container.php'
-                        })
-                    </script>";
-            }
-        }
-        ?>
 
 
             <!-- Footer -->
@@ -499,18 +467,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset ('admin/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
 
