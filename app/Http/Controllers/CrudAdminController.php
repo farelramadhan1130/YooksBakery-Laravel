@@ -15,7 +15,7 @@ class CrudAdminController extends Controller
             return view('admin.kategori_tambah');
         }
 
-        public function simpanKategori(Request $request)
+        public function kategoriSimpan(Request $request)
         {
             $request->validate([
                 'nama' => 'required',
@@ -36,7 +36,7 @@ class CrudAdminController extends Controller
 
             return redirect()->route('datakategori')->with('success', 'Input data kategori berhasil.');
         }
-        public function hapusKategori($id)
+        public function kategoriHapus($id)
         {
             $kategori = Kategori::find($id);
 
@@ -49,7 +49,7 @@ class CrudAdminController extends Controller
             return redirect()->route('datakategori')->with('success', 'Kategori berhasil dihapus.');
         }
 
-        public function show($id)
+        public function kategoriShow($id)
         {
             $kategori = Kategori::find($id);
 
@@ -60,7 +60,7 @@ class CrudAdminController extends Controller
             return view('admin.kategori_edit', compact('kategori'));
         }
 
-        public function updateKategori(Request $request, $id)
+        public function kategoriUpdate(Request $request, $id)
         {
             $request->validate([
                 'nama' => 'required',
@@ -132,4 +132,76 @@ class CrudAdminController extends Controller
                 return redirect()->route('dataproduk')->with('success', 'Produk berhasil disimpan');
         }
 
+        public function produkHapus($id){
+            $produk = Produk::find($id);
+
+            if (!$produk) {
+                return redirect()->route('dataproduk')->with('error', 'Produk tidak ditemukan.');
+            }
+
+            $produk->delete();
+
+            return redirect()->route('dataproduk')->with('success', 'Produk berhasil dihapus.');
+        }
+
+        public function produkShow($id)
+        {
+            $supplier = Supplier::all();
+            $kategori = Kategori::all();
+            $produk = Produk::find($id);
+
+            if (!$produk) {
+                return redirect()->back()->with('error', 'Produk tidak ditemukan');
+            }
+
+            return view('admin.produk_edit', compact('produk', 'kategori', 'supplier'));
+        }
+
+        public function produkUpdate(Request $request, $id){
+            $request->validate([
+                'id_supplier' => 'required',
+                'id_kategori' => 'required',
+                'kode' => 'required',
+                'nama' => 'required',
+                'beli' => 'required',
+                'jual' => 'required',
+                'coret' => 'required',
+                'stock' => 'required',
+                'date' => 'required',
+                'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'keterangan' => 'required',
+            ]);
+
+            // Upload foto
+            if ($request->hasFile('foto')) {
+                $foto = $request->file('foto');
+                $namaFoto = $foto->getClientOriginalName();
+                $foto->move('asset/image/image-admin/produk', $namaFoto);
+                $fotoPath = 'asset/image/image-admin/produk/' . $namaFoto;
+            }
+            
+            $produk = Produk::find($id);
+
+            // if (!$produk) {
+            //     return redirect()->back()->with('error', 'Produk tidak ditemukan');
+            // }
+            // Simpan data produk
+            $produk->id_supplier = $request->id_supplier;
+            $produk->id_kategori = $request->id_kategori;
+            $produk->kode_produk = $request->kode;
+            $produk->nama_produk = $request->nama;
+            $produk->biaya_produk = $request->beli;
+            $produk->jual_produk = $request->jual;
+            $produk->harga_coret = $request->coret;
+            $produk->stock_produk = $request->stock;
+            $produk->tanggal_produksi = $request->date;
+            $produk->foto_produk = $namaFoto;
+            $produk->keterangan_produk = $request->keterangan;
+            $produk->save();
+            // if (!$produk->save()) {
+            //     return redirect()->back()->with('error', 'Gagal menyimpan produk');
+            // }
+            
+            return redirect()->route('dataproduk')->with('success', 'Produk berhasil disimpan');
+        }
 }

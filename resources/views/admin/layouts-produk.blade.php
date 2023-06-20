@@ -463,8 +463,12 @@
                         <td>{{ $value->keterangan_produk }}</td>
                         <td>
                         <div class='btn-group'>
-                          <a href="produk_edit.php?id_produk={{ $value->id_produk }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
-                          <a href="produk_hapus.php?id_produk={{ $value->id_produk }}" class='btn btn-danger'><i class="bx bx-trash me-1"></i></i></a>
+                          <a href="{{ route('produk.show', ['id' => $value->id_produk]) }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
+                          <form action="{{ route('produk.hapus', ['id' => $value->id_produk]) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="bx bx-trash me-1"></i></button>
+                                </form>
                         </div>
                           <!-- <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
