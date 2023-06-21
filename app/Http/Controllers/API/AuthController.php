@@ -184,7 +184,7 @@ class AuthController extends Controller
                 if (method_exists($penjualan, 'getErrors')) {
                     $errorMessages = array_merge($errorMessages, $penjualan->getErrors());
                 }
-                if (method_exists($penjualanproduk, 'getErrors')){
+                if (method_exists($penjualanproduk, 'getErrors')) {
                     $errorMessages = array_merge($errorMessages, $penjualanproduk->getErrors());
                 }
                 return response()->json([
