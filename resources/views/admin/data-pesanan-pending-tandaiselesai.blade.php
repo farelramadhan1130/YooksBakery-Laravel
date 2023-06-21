@@ -445,12 +445,12 @@ else {
                 $id_user = $_SESSION['User']['id_user'];
                 $ambil = $koneksi->query("SELECT * FROM penjualan 
                                           LEFT JOIN user ON penjualan.id_user=user.id_user
-                                          WHERE (penjualan.id_toko='$id_toko' AND status_pesanan='pending') AND DATE(tanggal_penjualan) BETWEEN '$tglm' AND '$tgls' ");
+                                          WHERE (penjualan.id_toko='$id_toko' AND status_pesanan='pending')");
                 while ($tiap = $ambil->fetch_assoc())
                 {
                     $laporan[] = $tiap;
                 }
-                $koneksi->query("UPDATE penjualan SET status_pesanan = 'Lunas' WHERE id_penjualan='$id_penjualan' AND id_toko='$id_toko' ");
+                $koneksi->query("UPDATE penjualan SET status_pesanan = 'Lunas' WHERE id_penjualan='$id_penjualan'");
 
                 echo "<script>
                         Swal.fire({

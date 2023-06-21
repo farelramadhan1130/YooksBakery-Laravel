@@ -651,134 +651,80 @@
         });
     </script>
         
-      <script>
-      am5.ready(function() {
+        <script>
+        am5.ready(function() {
+            // Create root element
+            var root = am5.Root.new("transaksitahunini");
 
-      // Create root element
-      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-       root = am5.Root.new("transaksitahunini");
+            // Set themes
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
 
+            // Create chart
+            var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                panX: true,
+                panY: true,
+                wheelX: "panX",
+                wheelY: "zoomX",
+                pinchZoomX: true
+            }));
 
-      // Set themes
-      // https://www.amcharts.com/docs/v5/concepts/themes/
-      root.setThemes([
-        am5themes_Animated.new(root)
-      ]);
+            // Add cursor
+            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+            cursor.lineY.set("visible", false);
 
+            // Create axes
+            var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+            xRenderer.labels.template.setAll({
+                rotation: -90,
+                centerY: am5.p50,
+                centerX: am5.p100,
+                paddingRight: 15
+            });
 
-      // Create chart
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/
-       chart = root.container.children.push(am5xy.XYChart.new(root, {
-        panX: true,
-        panY: true,
-        wheelX: "panX",
-        wheelY: "zoomX",
-        pinchZoomX:true
-      }));
+            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                maxDeviation: 0.3,
+                categoryField: "country",
+                renderer: xRenderer,
+                tooltip: am5.Tooltip.new(root, {})
+            }));
 
-      // Add cursor
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-       cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-      cursor.lineY.set("visible", false);
+            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                maxDeviation: 0.3,
+                renderer: am5xy.AxisRendererY.new(root, {})
+            }));
 
+            // Create series
+            var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                name: "Series 1",
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: "value",
+                sequencedInterpolation: true,
+                categoryXField: "country",
+                tooltip: am5.Tooltip.new(root, {
+                    labelText: "{valueY}"
+                })
+            }));
 
-      // Create axes
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-       xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
-      xRenderer.labels.template.setAll({
-        rotation: -90,
-        centerY: am5.p50,
-        centerX: am5.p100,
-        paddingRight: 15
-      });
+            series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+            series.columns.template.adapters.add("fill", function(fill, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
 
-       xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-        maxDeviation: 0.3,
-        categoryField: "country",
-        renderer: xRenderer,
-        tooltip: am5.Tooltip.new(root, {})
-      }));
+            series.columns.template.adapters.add("stroke", function(stroke, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
 
-       yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-        maxDeviation: 0.3,
-        renderer: am5xy.AxisRendererY.new(root, {})
-      }));
+            var data = @json($dataPenjualan);
+            xAxis.data.setAll(data);
+            series.data.setAll(data);
 
-
-      // Create series
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-       series = chart.series.push(am5xy.ColumnSeries.new(root, {
-        name: "Series 1",
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: "value",
-        sequencedInterpolation: true,
-        categoryXField: "country",
-        tooltip: am5.Tooltip.new(root, {
-          labelText:"{valueY}"
-        })
-      }));
-
-      series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
-      series.columns.template.adapters.add("fill", function(fill, target) {
-        return chart.get("colors").getIndex(series.columns.indexOf(target));
-      });
-
-      series.columns.template.adapters.add("stroke", function(stroke, target) {
-        return chart.get("colors").getIndex(series.columns.indexOf(target));
-      });
-
-      // 
-      //   $allData = mysqli_query($koneksi, "SELECT
-			//   t1.bulan,
-			//   IFNULL(t2.jumlah, 0) AS jumlah
-			// FROM (
-			//   SELECT 1 AS bulan UNION SELECT 2 AS bulan UNION SELECT 3 AS bulan
-			//   UNION SELECT 4 AS bulan UNION SELECT 5 AS bulan UNION SELECT 6 AS bulan
-			//   UNION SELECT 7 AS bulan UNION SELECT 8 AS bulan UNION SELECT 9 AS bulan
-			//   UNION SELECT 10 AS bulan UNION SELECT 11 AS bulan UNION SELECT 12 AS bulan
-			// ) t1
-			// LEFT JOIN (
-			//   SELECT
-			//     MONTH(tanggal_penjualan) AS bulan,
-			//     COUNT(*) AS jumlah
-			//   FROM penjualan
-			//   WHERE YEAR(tanggal_penjualan) = YEAR(CURDATE())
-			//   GROUP BY bulan
-			// ) t2 ON t1.bulan = t2.bulan
-			// ORDER BY t1.bulan ASC");
-      // ?>
-
-      // Set data
-       data = [];
-
-       let month = [
-        "Januari",
-        "Februari",
-        "Maret",
-        "April",
-        "Mei",
-        "Juni",
-        "Juli",
-        "Agustus",
-        "September",
-        "Oktober",
-        "November",
-        "Desember",
-       ]
-      
-      
-
-      xAxis.data.setAll(data);
-      series.data.setAll(data);
-
-
-      // Make stuff animate on load
-      // https://www.amcharts.com/docs/v5/concepts/animations/
-      series.appear(1000);
-      chart.appear(1000, 100);
-
-      }); // end am5.ready()
+            // Make stuff animate on load
+            series.appear(1000);
+            chart.appear(1000, 100);
+        });
     </script>
   </body>
 </html>

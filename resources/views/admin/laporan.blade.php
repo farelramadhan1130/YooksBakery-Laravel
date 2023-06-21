@@ -436,7 +436,7 @@
                     <tbody class="table-border-bottom-0">
                         <?php $grandtotal = 0; ?>
                        @foreach ($pesananlunas as $key => $value)
-                        <?php $grandtotal+=$value["total_penjualan"] ?>
+                        <?php $grandtotal+=$value->total_penjualan ?>
                             <tr>
                                 <td>{{ $key+1}}</td>
                                 <td>{{ $value->nama_user}}</td>
@@ -450,7 +450,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="4">Total</td>
-                            <td>Rp. {{ $grandtotal }}</td>
+                            <td>Rp. {{ number_format($grandtotal) }}</td>
                         </tr>
                     </tfoot>
                   </table>

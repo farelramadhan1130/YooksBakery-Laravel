@@ -1,4 +1,3 @@
-<?php require("koneksi.php"); ?>
 
 <!DOCTYPE html>
 
@@ -29,12 +28,16 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Data Transaksi | Yooks Bakery</title>
+    <title>Data Transaksi Customers </title>
 
     <meta name="description" content="" />
 
+    <!-- Link CSS Table -->
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/DataTables-1.13.1/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset ('asset/DataTables-5/Buttons-2.3.3/css/buttons.bootstrap5.min.css') }}">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset ('asset/image/image-website/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,24 +48,25 @@
     />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
+
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
+    <script src="{{ asset ('admin/assets/js/config.js') }}"></script>
   </head>
 
   <body>
@@ -73,7 +77,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.php" class="app-brand-link">
+            <a href="{{ route('dashboard')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg
                   width="25"
@@ -129,7 +133,7 @@
                   </g> -->
                 </svg>
               </span>
-              <img src="../assets/img/favicon/favicon.ico" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
+              <img src="{{ asset ('admin/assets/img/favicon/favicon.ico') }}" alt="..."><span class="app-brand-text demo menu-text fw-bolder">Admin</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -142,7 +146,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.php" class="menu-link">
+              <a href="{{route('dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -161,22 +165,22 @@
 
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="layouts-container.php" class="menu-link">
+                  <a href="{{route('datakategori')}}" class="menu-link">
                     <div data-i18n="Container">Data Kategori</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-fluid.php" class="menu-link">
+                  <a href="{{route('datasupplier')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Supplier</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-produk.php" class="menu-link">
+                  <a href="{{route('dataproduk')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Produk</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="layouts-user.php" class="menu-link">
+                  <a href="{{route('datauser')}}" class="menu-link">
                     <div data-i18n="Fluid">Data User</div>
                   </a>
                 </li>
@@ -184,7 +188,7 @@
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">DATA TRANSAKSI</span>
+              <span class="menu-header-text">Data Transaksi</span>
             </li>
             <li class="menu-item active open">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -193,26 +197,115 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item active">
-                  <a href="transaksi-penjualan.php" class="menu-link">
+                  <a href="{{route('datatransaksipenjualan')}}" class="menu-link">
                     <div data-i18n="Account">Customers</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="data-pesanan-pending.php" class="menu-link">
+                  <a href="{{route('datapesananpending')}}" class="menu-link">
                     <div data-i18n="Fluid">Data Pesanan Pending</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan.php" class="menu-link">
+                  <a href="{{route('datalaporan')}}" class="menu-link">
                     <div data-i18n="Account">Data Pesanan Lunas</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="laporan_keuntungan.php" class="menu-link">
+                  <a href="{{route('datalaporankeuntungan')}}" class="menu-link">
                     <div data-i18n="Account">Laporan Keuntungan</div>
                   </a>
                 </li>
-            `</aside>
+                <!-- <li class="menu-item">
+                  <a href="pages-account-settings-account.php" class="menu-link">
+                    <div data-i18n="Account">Account</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-account-settings-notifications.php" class="menu-link">
+                    <div data-i18n="Notifications">Notifications</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="pages-account-settings-connections.php" class="menu-link">
+                    <div data-i18n="Connections">Connections</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Authentications">Authentications</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="auth-login-basic.php" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">Login</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="auth-register-basic.php" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">Register</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="auth-forgot-password-basic.php" class="menu-link" target="_blank">
+                    <div data-i18n="Basic">Forgot Password</div>
+                  </a>
+                </li>
+              </ul>
+            </li>=
+
+            Forms & Tables
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+            <Forms
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Elements">Form Elements</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="forms-basic-inputs.php" class="menu-link">
+                    <div data-i18n="Basic Inputs">Basic Inputs</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="forms-input-groups.php" class="menu-link">
+                    <div data-i18n="Input groups">Input groups</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Layouts">Form Layouts</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="form-layouts-vertical.php" class="menu-link">
+                    <div data-i18n="Vertical Form">Vertical Form</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="form-layouts-horizontal.php" class="menu-link">
+                    <div data-i18n="Horizontal Form">Horizontal Form</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!Tables 
+            <li class="menu-item">
+              <a href="tables-basic.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">Tables</div>
+              </a>
+            </li>
+          </ul> -->
+        </aside>
+        <!-- / Menu -->
 
         <!-- Layout container -->
         <div class="layout-page">
@@ -232,13 +325,12 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                  <li class="menu-item col-md-0 px-0">
+                    <a href="{{route('logout')}}" class="menu-link">
+                      <i class=""></i>
+                      <div data-i18n="Logout"><Button class="btn btn-primary bx bx-log-in-circle col-md-0 "> Logout</Button></div>
+                    </a>
+                  </li>
                 </div>
               </div>
               <!-- /Search -->
@@ -247,7 +339,7 @@
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
                   <a>
-                    Hi, <?php echo $_SESSION['User']['nama_user'] ?>
+                    Hi, {{ Auth::user()->nama_user }}
                   </a>
                 </li>
 
@@ -255,7 +347,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/8.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg')}}" alt class="w-px-40 h-px-40 rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -264,12 +356,13 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/8.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <img src="{{ asset('admin/assets/img/avatars/' . Auth::user()->nama_user . '.jpg') }}" alt="" class="w-40 h-40 rounded-circle" />
+
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block"><?php echo $_SESSION['User']['nama_user'] ?></span>
-                            <small class="text-muted"><?php echo $_SESSION['User']['level_user'] ?></small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->nama_user }}</span>
+                            <small class="text-muted">{{ Auth::user()->level }}</small>
                           </div>
                         </div>
                       </a>
@@ -302,7 +395,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="logout.php">
+                      <a class="dropdown-item" href="#">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -315,40 +408,14 @@
           </nav>
 
           <!-- / Navbar -->
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
+
               <!-- Basic Bootstrap Table -->
               <div class="card shadow">
-                <h5 class="card-header">Detail Pemesanan Customers
-                <?php 
-                //Mendapatkan ID Toko user yang login
-                $id_toko = $_SESSION['User']['id_toko'];
-
-                //Mendapatkan ID Penjualan yang di detailkan dari URL
-                $id_penjualan = $_GET['id'];
-
-                //Ambil dari tabel Penjualan yang idnya ini
-                $ambil = $koneksi->query("SELECT * FROM penjualan 
-                                        LEFT JOIN user ON penjualan.id_user=user.id_user 
-                                        WHERE penjualan.id_penjualan='$id_penjualan' AND penjualan.id_toko='$id_toko' ");
-                $penjualan = $ambil->fetch_assoc();
-
-                $produk = array();
-                $ambil = $koneksi->query("SELECT * FROM penjualan_produk WHERE id_penjualan='$id_penjualan' AND id_toko='$id_toko' ");
-                while($tiap = $ambil->fetch_assoc()){
-                    $produk[] = $tiap; 
-                }
-
-                // echo "<pre>";
-                // print_r($penjualan);
-                // print_r($produk );
-                // echo "<pre>";
-                ?>
-                </h5>
+                <h5 class="card-header">Detail Pemesanan Customers</h5>
               <div class="container">
                 <div class="table-responsive text-nowrap">
                   <div class="row-md-9">
@@ -376,26 +443,26 @@
             <tr>
                 <td>Id Pemesanan</td>
                 <td>:</td>
-                <td><?php echo $id_penjualan?></td>
+                <td>{{$penjualan->id}}</td>
             <tr>
                 <td>Pelanggan</td>
                 <td>:</td>
-                <td><?php echo $penjualan['nama_user']?></td>
+                <td>{{$penjualan->nama_user}}</td>
             </tr>
             <tr>
                 <td>No.Telp</td>
                 <td>:</td>
-                <td><?php echo $penjualan['telepon_user']?></td>
+                <td>{{$penjualan->telepon_user}}</td>
             </tr>
             <tr>
                 <td>Tanggal Pemesanan</td>
                 <td>:</td>
-                <td><?php echo $penjualan['tanggal_penjualan']?></td>
+                <td>{{$penjualan->tanggal_penjualan}}</td>
             </tr>
             <tr>
                 <td>Tanggal Pengambilan Pesanan</td>
                 <td>:</td>
-                <td><?php echo $penjualan['tanggal_ambil_penjualan']?></td>
+                <td>{{$penjualan->tanggal_ambil_penjualan}}</td>
             </tr>
         </tbody>
     </table>
@@ -409,25 +476,25 @@
                         <th>Subtotal</th>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <?php $keuntungan = 0; ?>
-                      <?php foreach ($produk as $key => $value): ?>
-                        <?php $keuntungan += ($value['harga_produk'] - $value['biaya_produk']) * $value['jumlah_produk'] ?>
-                      <tr>
-                        <td><?php echo $key+1 ?></td>
-                        <td><?php echo $value["nama_produk"] ?></td>
-                        <td>Rp. <?php echo number_format($value["harga_produk"]) ?></td>
-                        <td><?php echo $value["jumlah_produk"] ?></td>
-                        <td>Rp. <?php echo number_format($value["subtotal_produk"]) ?></td>
-                      </tr>
-                      <?php endforeach ?>
-                    </tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><b>Total</b></td>
-                        <td>Rp. <?php echo number_format($penjualan['total_penjualan']) ?></td>
-                    </tr>
+                    <?php $keuntungan = 0; ?>
+                    @foreach ($produk as $key => $value)
+                        <?php $keuntungan += ($value->harga_produk - $value->biaya_produk) * $value->jumlah_produk; ?>
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td>{{ $value->nama_produk }}</td>
+                            <td>Rp. {{ number_format($value->harga_produk) }}</td>
+                            <td>{{ $value->jumlah_produk }}</td>
+                            <td>Rp. {{ number_format($value->subtotal_produk) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><b>Total</b></td>
+                    <td>Rp. {{ number_format($penjualan->total_penjualan) }}</td>
+                </tr>
     </table>
     <br>
     <table>
@@ -458,18 +525,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset ('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{ asset ('admin/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{{ asset ('admin/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
 

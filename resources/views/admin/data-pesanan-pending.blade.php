@@ -448,8 +448,12 @@
                                 <td>{{$value->status_pesanan}}</td>
                                 <td>
                                 <div class='btn-group'>
-                                  <a href="data-pesanan-pending-tandaiselesai.php?id_penjualan={{ $value->id }}" class='btn btn-warning'><i class='bx bx-check'></i></a>
-                                  <a href="data-pesanan-pending-hapus.php?id_penjualan={{ $value->id }}" class='btn btn-danger'><i class="bx bx-trash me-1"></i></i></a>
+                                <a href="{{ route('update-status', ['id_penjualan' => $value->id]) }}" class="btn btn-warning">
+                                    <i class="bx bx-check"></i>
+                                </a>
+                                <a href="{{ route('hapus-pesanan', ['id_penjualan' => $value->id]) }}" class="btn btn-danger">
+                                    <i class="bx bx-trash me-1"></i>
+                                </a>
                                 </td>
                             </tr>
                         @endforeach
