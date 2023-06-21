@@ -421,7 +421,7 @@
                 <h5 class="card-header"></h5>
               
                 <div class="container col-md-0 px-2">
-                  <a href="#" class="btn btn-primary">Tambah</a>
+                  <a href="{{route('user.tambah')}}" class="btn btn-primary">Tambah</a>
                   <!-- href : user_tambah.php -->
                 </div>
                 <div class="table-responsive text-nowrap p-2">

@@ -448,7 +448,9 @@
                         <td>Rp. {{ number_format($value->total_penjualan) }}</td>
                         <td>
                         <div class='btn-group'>
-                          <a href="transaksi-penjualan-produk.php?id={{ $value->id }}" class='btn btn-warning' data-target="#detailorder"><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
+                        <a href="{{ route('detailtransaksi.penjualan', ['id' => $value->id]) }}" class="btn btn-warning" data-target="#detailorder">
+                            <i class="bx bx-edit-alt me-1"></i>
+                        </a>
                           <a href="transaksi-penjualan-hapus.php?id={{ $value->id }}" class='btn btn-danger'><i class="bx bx-trash me-1"></i></i></a>
                         </div>
                           <!-- <div class="dropdown">

@@ -15,6 +15,7 @@ class AdminController extends Controller
     public function index()
     {
         $userCount = User::count();
+        // Chart Kategori dan Produk
         $transaksiCount = PenjualanProduk::count();
         $allData = DB::table('products')
             ->leftJoin('categories', 'categories.id_kategori', '=', 'products.id_kategori')
@@ -32,8 +33,42 @@ class AdminController extends Controller
             ];
         }
 
+        // Chart Penjualan
+         // Query data
+         $allDataPenjualan = DB::table('penjualan')
+         ->selectRaw('MONTH(tanggal_penjualan) AS bulan, COUNT(*) AS jumlah')
+         ->whereRaw('YEAR(tanggal_penjualan) = YEAR(CURDATE())')
+         ->groupBy('bulan')
+         ->orderBy('bulan', 'ASC')
+         ->get();
+
+            // Map bulan ke nama bulan
+            $bulan = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+            ];
+
+            $dataPenjualan = [];
+
+            foreach ($allDataPenjualan as $val) {
+                $dataPenjualan[] = [
+                    'country' => $bulan[$val->bulan - 1],
+                    'value' => $val->jumlah,
+                ];
+            }
+
         // Mengirim data ke view
-        return view('admin.index', compact('userCount', 'transaksiCount', 'data'));
+        return view('admin.index', compact('userCount', 'transaksiCount', 'data', 'dataPenjualan'));
     }
 
     public function datakategori()
@@ -51,7 +86,18 @@ class AdminController extends Controller
     public function dataproduk()
     {
         $products = DB::table('products')->get();
-        return view('admin.layouts-produk')->with('products', $products);
+        // Memberikan batas tanggal kadaluarsa pada produk
+        foreach ($products as $key => $value) {
+        $tanggalProduksi = $value->tanggal_produksi;
+        $tanggalSekarang = date('Y-m-d');
+
+        $selisihHari = abs(strtotime($tanggalSekarang) - strtotime($tanggalProduksi)) / (60 * 60 * 24);
+
+        if ($selisihHari > 3) {
+            $products[$key]->keterangan = "Kadaluarsa";
+        }
+    }
+        return view('admin.layouts-produk', ['products' => $products]);
     }
 
     public function datauser()

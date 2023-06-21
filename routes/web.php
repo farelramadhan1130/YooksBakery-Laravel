@@ -76,3 +76,12 @@ Route::post('/admin/dataproduk/simpan', [CrudAdminController::class, 'produkSimp
 Route::delete('/admin/dataproduk/hapus/{id}', [CrudAdminController::class, 'produkHapus'])->name('produk.hapus')->middleware('admin');
 Route::get('/admin/dataproduk/show/{id}', [CrudAdminController::class, 'produkShow'])->name('produk.show');
 Route::put('/admin/dataproduk/update/{id}', [CrudAdminController::class, 'produkUpdate'])->name('produk.update');
+
+Route::get('/admin/datalaporan/update-status/{id_penjualan}', [CrudAdminController::class, 'updateStatus'])->name('update-status');
+Route::get('/admin/datalaporan/pesanan-pending/hapus/{id_penjualan}', [CrudAdminController::class, 'hapusPesanan'])->name('hapus-pesanan');
+
+Route::get('datalaporan/detail-transaksi-penjualan-produk/{id}', [CrudAdminController::class, 'showTransaksiPenjualan'])->name('detailtransaksi.penjualan');
+
+Route::post('/admin/datauser/tambah/simpan', [CrudAdminController::class, 'userSimpan'])->name('user.simpan');
+Route::get('/admin/datauser/tambah', [CrudAdminController::class, 'userTambah'])->name('user.tambah');
+
