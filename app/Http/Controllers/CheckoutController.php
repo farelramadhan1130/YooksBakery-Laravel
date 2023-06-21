@@ -34,7 +34,7 @@ class CheckoutController extends Controller
         $jam = date("H:i:s");
         // Simpan ke tabel checkout
         $checkout = new Checkout();
-        $checkout->id_toko = Auth::user()->id_toko;
+        $checkout->id_toko = 1;
         $checkout->id_user = Auth::user()->id;
         $checkout->tanggal_penjualan = $tanggal;
         $checkout->tanggal_ambil_penjualan = $tanggal_ambil_penjualan . ' ' . $jam;
