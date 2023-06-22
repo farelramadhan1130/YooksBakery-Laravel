@@ -9,6 +9,7 @@ use App\Models\Produk;
 use App\Models\Checkout;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 class CrudAdminController extends Controller
 {
 
@@ -286,4 +287,100 @@ class CrudAdminController extends Controller
             // Redirect atau tampilkan pesan sukses
             return redirect()->route('datauser')->with('success', 'Data pengguna berhasil disimpan.');   
         }
+
+        
+        public function userUpdate(Request $request, $id)
+        {
+            $request->validate([
+                'nama' => 'required',
+                'alamat' => 'required',
+                'nomer' => 'required',
+                'email' => 'required|email',
+                'password' => 'nullable|min:6',
+                'foto' => 'image|max:2048',
+                'level' => 'required',
+            ]);
+
+            $user = User::find($id);
+
+            // Upload foto
+            if ($request->hasFile('foto')) {
+                $foto = $request->file('foto');
+                $namaFoto = $foto->getClientOriginalName();
+                $foto->move('admin/assets/img/avatars', $namaFoto);
+                $fotoPath = 'admin/assets/img/avatars' . $namaFoto;
+
+                // // Hapus foto sebelumnya jika ada
+                // if ($user->foto_user) {
+                //     Storage::delete($user->foto_user);
+                // }
+
+                $user->foto_user = $fotoPath;
+            }
+
+            // Simpan data user
+            $user->nama_user = $request->nama;
+            $user->alamat_user = $request->alamat;
+            $user->telepon_user = $request->nomer;
+            $user->email = $request->email;
+            if ($request->filled('password')) {
+                $user->password = bcrypt($request->password);
+            }
+            $user->level = $request->level;
+            $user->save();
+
+            // Redirect ke halaman lain atau berikan respon sesuai kebutuhan Anda
+            return redirect()->back()->with('success', 'Data user berhasil diupdate');
+        }
+        public function userShow($id)
+        {
+            $user = User::find($id);
+
+            if (!$user) {
+                return redirect()->back()->with('error', 'User tidak ditemukan');
+            }
+
+            return view('admin.user_edit', compact('user'));
+        }
+
+        public function userRegister(Request $request)
+        {
+            $validatedData = $request->validate([
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'address' => 'required',
+                'telp' => 'required',
+                'password' => 'required',
+            ]);
+
+            $nama = $request->input('name');
+            $email = $request->input('email');
+            $alamat = $request->input('address');
+            $telp = $request->input('telp');
+            $password = Hash::make($request->input('password'));
+
+            $user = new User();
+            $user->id_toko = 1; // Ubah sesuai kebutuhan
+            $user->nama_user = $nama;
+            $user->alamat_user = $alamat;
+            $user->telepon_user = $telp;
+            $user->email = $email;
+            $user->password = $password;
+            $user->level = 'User';
+            $user->save();
+
+            // Lakukan tindakan lanjutan seperti redirect atau memberikan respons kepada pengguna
+            return redirect()->route('login')->with('success', 'Data pengguna berhasil didaftarkan.'); 
+        }
+        public function registerShow(){
+            return view('register');
+        }
+        public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        // Lakukan tindakan lanjutan seperti redirect atau memberikan respons kepada pengguna
+        return redirect()->route('datauser')->with('success', 'Data pengguna berhasil dihapus'); 
+    }
 }

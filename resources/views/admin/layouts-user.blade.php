@@ -454,8 +454,12 @@
                         <td>{{ $value->foto_user }}</td>
                         <td>
                         <div class='btn-group'>
-                          <a href="user_edit.php?id={{ $value->id }}" class='btn btn-warning'><i class="bx bx-edit-alt me-1"></i></a>&emsp;&emsp;
-                          <a href="user_hapus.php?id={{ $value->id }}" class='btn btn-danger'><i class="bx bx-trash me-1"></i></i></a>
+                        <a href="{{ route('user.update', ['id' => $value->id]) }}" class="btn btn-warning"><i class="bx bx-edit-alt me-1"></i></a>
+                        <form method="POST" action="{{ route('user.delete', ['id' => $value->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="bx bx-trash me-1"></i></button>
+                        </form>
                         </div>
                           <!-- <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
