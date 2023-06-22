@@ -46,7 +46,7 @@ class CheckoutController extends Controller
 
         // ... kode selanjutnya ...
         $id_penjualan = $checkout->id;
-        $id_toko = Auth::user()->id_toko;
+        $id_toko = 1;
         foreach ($request->session()->get('keranjang') as $id_produk => $jumlah) {
             $produk = Produk::find($id_produk);
 
