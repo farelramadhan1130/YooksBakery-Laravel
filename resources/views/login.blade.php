@@ -29,7 +29,7 @@
                     </div>
                     <button class="btn btn-outline mb-1" name="login">Login</button>
                     <div>
-                    <p>Belum Punya akun? <a href="register.php">Register</a></p>
+                    <p>Belum Punya akun? <a href="{{route ('user.registershow')}}">Register</a></p>
                     </div>
                 </form>
                 

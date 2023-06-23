@@ -5,15 +5,20 @@
 
 
   <script>
-  $( function() {
-    $( "#date" ).datepicker({
-      autoclose:true,
-      todayHighlight:true,
-      format:'yyyy-mm-dd',
-      language: 'id'
+  $(function() {
+
+    var currentDate = new Date();
+    var currentDateString = currentDate.toISOString().slice(0, 10); // Dapatkan tanggal saat ini dalam format YYYY-MM-DD
+
+    $("#date").datepicker({
+      autoclose: true,
+      todayHighlight: true,
+      format: 'yyyy-mm-dd',
+      language: 'id',
+      startDate: currentDateString
     });
-  } );
-  </script>
+  });
+</script>
 @php
 use App\Models\Produk;
 

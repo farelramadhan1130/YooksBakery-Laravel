@@ -84,4 +84,8 @@ Route::get('datalaporan/detail-transaksi-penjualan-produk/{id}', [CrudAdminContr
 
 Route::post('/admin/datauser/tambah/simpan', [CrudAdminController::class, 'userSimpan'])->name('user.simpan');
 Route::get('/admin/datauser/tambah', [CrudAdminController::class, 'userTambah'])->name('user.tambah');
-
+Route::get('/admin/datauser/show/{id}', [CrudAdminController::class, 'userShow'])->name('user.show');
+Route::put('/admin/datauser/edit/{id}', [CrudAdminController::class, 'userUpdate'])->name('user.update');
+Route::post('/register/Tambah', [CrudAdminController::class, 'userRegister'])->name('user.register');
+Route::get('/register', [CrudAdminController::class, 'registerShow'])->name('user.registershow');
+Route::delete('/admin/datauser/delete/{id}', [CrudAdminController::class, 'destroy'])->name('user.delete');
